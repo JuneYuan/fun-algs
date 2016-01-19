@@ -6,11 +6,11 @@ package smartjune;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -19,6 +19,167 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Main {
+	
+	/*
+	 * #1136 : Professor Q's Software
+	 */
+	public static void startSoftware(Scanner scanner) {
+		int T = scanner.nextInt();
+		int N, M;
+		Module[] modules;
+						
+		// 临时变量
+		Signal sig;
+		int val, num;
+		
+System.out.println("T=" + T);		
+		for (int t = 0; t < T; t++) {
+			N = scanner.nextInt();  // 模块数
+			M = scanner.nextInt();	// 初始信号数
+System.out.println("\nN=" + N + " M=" + M);			
+			modules = new Module[N + 1];
+			for (int i = 0; i <= N; i++)
+				modules[i] = new Module();		
+			
+			// 将初始数据流作为 module0
+			for (int i = 0; i < M; i++) {
+				val = scanner.nextInt();
+				sig = new Signal(val);
+				modules[0].sendSignal.add(sig);				
+			}
+System.out.println("初始信号：" + modules[0].sendSignal);
+			
+			// 读取其他 module 信息
+			for (int i = 1; i <= N; i++) {
+				val = scanner.nextInt();
+				sig = new Signal(val);
+				modules[i].activeSignal = sig;
+				sig.canActiveModule.add(i);
+System.out.print("第" + i + "个模块启动信号：" + modules[i].activeSignal.val + " ");				 
+				
+				num = scanner.nextInt();
+				for (int j = 1; j <= num; j++) {
+					val = scanner.nextInt();
+					sig = new Signal(val);
+					modules[i].sendSignal.add(sig);					
+				}
+System.out.println("发出信号：num=" + num + " 内容=" + modules[i].sendSignal);				
+			}
+			
+		}
+	}
+		
+	private static class Module {
+		Signal activeSignal = new Signal(-1);
+		ArrayList<Signal> sendSignal = new ArrayList<>();
+		
+		public String toString() {
+			return (activeSignal + ", " + sendSignal);
+		}
+
+	}
+	
+	private static class Signal {
+		int val;
+		List<Integer> canActiveModule = new ArrayList<>();
+		
+		Signal(int val) {
+			this.val = val;
+		}
+		
+		public String toString() {
+			return Integer.toString(val);
+			//return (val + " " + canActiveModule.toString());
+		}
+	}
+		
+
+	/*
+	 * #1088 : Right-click Context Menu 未完成❌
+	 */
+	public static void rightClickMenu(Scanner scanner) {		
+		int N = scanner.nextInt();		// total num of rows
+		
+		Panel[] panels = new Panel[N];
+		for (int i = 0; i < N; i++)
+			panels[i] = new Panel();
+		
+		System.out.println(panels[0].rowIds.size());
+		
+		
+		int id, numOfIds;
+		
+		// 读入每一个 panel 的情况
+		for (int i = 0; i <= N; i++) {
+			/*
+			 * numOfIds:
+			 * i=0, 3 时表示当前panel包含的row数
+			 */
+			numOfIds = scanner.nextInt();
+			
+			// Non-zero numOfIds lead to new panel
+			while (numOfIds-- > 0) {
+				id = scanner.nextInt();
+				if (id == 0) {  // separating line between sections
+					numOfIds++;
+				}
+				panels[i].rowIds.add(id);
+			}			
+			
+			processPanel(panels[i]);
+		}
+	}
+	
+	private static void processPanel(Panel p){
+		if ( p.rowIds.size() == 0 )
+			return;
+		p.sections.add(new Section());
+		int sectionId = 0;
+		p.rowIds.add(0);
+		
+		for (int i = 0; i!= p.rowIds.size(); i++) {
+			if (p.rowIds.get(i) != 0) {
+				p.sections.get(sectionId).rows.add(new Row(p.rowIds.get(i)));
+				
+			} else {
+				// 新的 section
+				p.sections.add(new Section());
+				sectionId++;
+			}
+		}
+		return;
+	}
+
+	private static class Row {
+		int childId = -1;
+		int expandLength = 0;
+			
+		Row(int id)
+		{ childId = id; }
+	}
+
+	private static class Section {
+		ArrayList<Row> rows;
+		int selfLength;
+		int expandLength;
+		int delta;
+		
+	}
+	
+	private static class Panel{
+		ArrayList<Section> sections;
+		ArrayList<Integer> rowIds;
+		
+		Panel() {
+			sections = new ArrayList<>();
+			rowIds = new ArrayList<>();
+		}		
+		
+		public String toString() {
+			return sections.toString() + rowIds.toString();
+		}
+	}
+	
 	
 	/*
 	 * #1090 : Highway
@@ -118,7 +279,6 @@ System.out.printf("        tj = %.2f\n", tj);
 		for (int i = 0; i < ans.length; i++)
 			System.out.printf("%.2f\n", ans[i]);
 	}
-
 	
 	
 	/*
@@ -249,7 +409,6 @@ System.out.printf("        tj = %.2f\n", tj);
 	 * ❌
 	 * #1096 : Divided Product
 	 */
-	
 	private static ArrayList<String> solutions = new ArrayList<>();
 	
 	public static void dividedProduct(Scanner scanner) {
@@ -263,12 +422,7 @@ System.out.printf("        tj = %.2f\n", tj);
 		System.out.println(cnt);
 
 	}
-	
-	 {
-		
-	}
-	
-	
+
 	public static int bruteDFS(int N, int M, int last,
 					int sum, int mul, int indent) {
 		
@@ -362,14 +516,10 @@ System.out.println("i:" + last + " DFS(N=" + N + ", last=" + last + ", sum=" + s
 			System.out.println(s);
 		
 	}
-	
-	
-	
-	// static String prefix = "";
+		
 	
 	/*
-	 * ❌
-	 * #1107 : Shortest Proper Prefix
+	 * #1107 : Shortest Proper Prefix 未完成❌
 	 */
 	public static void shortestPrefix(Scanner scanner) {
 		
@@ -427,8 +577,7 @@ System.out.println("i:" + last + " DFS(N=" + N + ", last=" + last + ", sum=" + s
 				
 		}		
 	}
-	
-	
+		
 	private static int traverse(TrieNode root, int num) {
 		
 		if (root.cnt <= 5) {
@@ -702,7 +851,7 @@ System.out.println("Yes (" + skyX + ", " + skyY + ")");
 
 	
 	/*
-	 * #1101 : Arithmetic Puzzles
+	 * #1101 : Arithmetic Puzzles 未完成❌
 	 */
 	public static void arithmeticPuzzles(Scanner scanner) {
 		int T = scanner.nextInt();
@@ -790,7 +939,7 @@ System.out.println("Yes (" + skyX + ", " + skyY + ")");
 		final int N = 6;
 		int tax = scanner.nextInt();
 		
-		// 用数组记录分段点、税率、每个分段点对应的累计纳税值，
+		// 用数组记录收入分段点、税率、每个分段点对应的累计纳税值，
 		int[] keyPoints = {0, 1500, 4500, 9000, 35000, 55000, 80000};
 		double[] rates = {0, 0.03, 0.1, 0.2, 0.25, 0.3, 0.35, 0.45};
 		int[] accumulatedTax = {0, 45, 345, 1245, 7745, 13745, 22495};	
@@ -1010,7 +1159,6 @@ System.out.println(red.length() + " " + yellow.length() + " " + blue.length());
 		}
 	}
 
-	
 	public static void chechAdjacentSeats(char[][] map, int[][] step, int N, int M) {
 		int ret = Integer.MAX_VALUE;
 				
