@@ -23,52 +23,92 @@ public class Main {
 	/*
 	 * #1136 : Professor Q's Software
 	 */
+	private static Set<Integer>[] edgeInfo;
+	private static Module[] modules;
+	private static HashMap<Integer, Signal> signalPool;
+	
+	@SuppressWarnings("unchecked")
 	public static void startSoftware(Scanner scanner) {
 		int T = scanner.nextInt();
 		int N, M;
-		Module[] modules;
 						
 		// 临时变量
 		Signal sig;
 		int val, num;
-		
-System.out.println("T=" + T);		
 		for (int t = 0; t < T; t++) {
 			N = scanner.nextInt();  // 模块数
 			M = scanner.nextInt();	// 初始信号数
-System.out.println("\nN=" + N + " M=" + M);			
+			
+			signalPool = new HashMap<>();
 			modules = new Module[N + 1];
-			for (int i = 0; i <= N; i++)
-				modules[i] = new Module();		
+			edgeInfo = (TreeSet<Integer>[]) new TreeSet[N + 1];
+			for (int i = 0; i <= N; i++) {
+				modules[i] = new Module();
+				edgeInfo[i] = new TreeSet<Integer>();
+			}
+
 			
 			// 将初始数据流作为 module0
 			for (int i = 0; i < M; i++) {
-				val = scanner.nextInt();
-				sig = new Signal(val);
-				modules[0].sendSignal.add(sig);				
+				val = scanner.nextInt();	sig = new Signal(val);
+				modules[0].sendSignal.add(sig);
+				
+				signalPool.put(val, sig);
 			}
-System.out.println("初始信号：" + modules[0].sendSignal);
 			
 			// 读取其他 module 信息
 			for (int i = 1; i <= N; i++) {
-				val = scanner.nextInt();
-				sig = new Signal(val);
-				modules[i].activeSignal = sig;
-				sig.canActiveModule.add(i);
-System.out.print("第" + i + "个模块启动信号：" + modules[i].activeSignal.val + " ");				 
+				val = scanner.nextInt();	
+				sig = signalPool.get(val);
+				if (sig == null)
+					sig = new Signal(val);
 				
+				/* 👀
+				 * adjust activeSignal, canActiveModule
+				 */
+				sig.canActiveModule.add(i);
+				modules[i].activeSignal = sig;
+				
+				signalPool.put(val, sig);
+				
+				/* 👀
+				 * adjust sendSignal
+				 */
 				num = scanner.nextInt();
 				for (int j = 1; j <= num; j++) {
 					val = scanner.nextInt();
-					sig = new Signal(val);
-					modules[i].sendSignal.add(sig);					
+					
+					sig = signalPool.get(val);
+					if (sig == null) {
+						sig = new Signal(val);
+						signalPool.put(val, sig);
+					}
+						
+					modules[i].sendSignal.add(sig);				
 				}
-System.out.println("发出信号：num=" + num + " 内容=" + modules[i].sendSignal);				
 			}
+			
+			
+			// 构造有向无环图
+			for (int i = 0; i <=N; i++) {
+				for (Signal sign : modules[i].sendSignal) {
+					for (int j : sign.canActiveModule) {
+						addEdge(i, j);
+					}
+				}
+			}
+			
+System.out.printf("\nT=%d\n", t);			
+for (int i = 0; i <= N; i++)
+	System.out.printf("模块 %d 可启动模块 %s\n", i, edgeInfo[i]);
 			
 		}
 	}
-		
+
+	private static void addEdge(int v, int w){
+		edgeInfo[v].add(w);
+	}
+			
 	private static class Module {
 		Signal activeSignal = new Signal(-1);
 		ArrayList<Signal> sendSignal = new ArrayList<>();
@@ -406,8 +446,7 @@ System.out.printf("        tj = %.2f\n", tj);
 
 	
 	/*
-	 * ❌
-	 * #1096 : Divided Product
+	 * #1096 : Divided Product 未完成❌
 	 */
 	private static ArrayList<String> solutions = new ArrayList<>();
 	
