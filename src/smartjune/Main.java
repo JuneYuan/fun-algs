@@ -49,6 +49,7 @@ public class Main {
 
 			
 			// 将初始数据流作为 module0
+			modules[0].id = 0;
 			for (int i = 0; i < M; i++) {
 				val = scanner.nextInt();	sig = new Signal(val);
 				modules[0].sendSignal.add(sig);
@@ -62,14 +63,15 @@ public class Main {
 				sig = signalPool.get(val);
 				if (sig == null)
 					sig = new Signal(val);
+				signalPool.put(val, sig);
 				
 				/* 👀
 				 * adjust activeSignal, canActiveModule
 				 */
 				sig.canActiveModule.add(i);
 				modules[i].activeSignal = sig;
+				modules[i].id = i;
 				
-				signalPool.put(val, sig);
 				
 				/* 👀
 				 * adjust sendSignal
@@ -89,7 +91,7 @@ public class Main {
 			}
 			
 			
-			// 构造有向无环图
+			// 顺序遍历输入的modules[]信息，构造有向无环图
 			for (int i = 0; i <=N; i++) {
 				for (Signal sign : modules[i].sendSignal) {
 					for (int j : sign.canActiveModule) {
@@ -97,21 +99,65 @@ public class Main {
 					}
 				}
 			}
-			
+/*	打印有向无环图的邻接表信息		
 System.out.printf("\nT=%d\n", t);			
 for (int i = 0; i <= N; i++)
 	System.out.printf("模块 %d 可启动模块 %s\n", i, edgeInfo[i]);
+*/
 			
+/* 打印 signalPool
+Set ks = signalPool.keySet();
+for (Object i : ks) {
+	i = (Integer)i;
+	System.out.println(signalPool.get(i));				
+}
+*/			
+			
+			// 深度优先搜索
+			DFS(modules[0], 0);
+			
+			output();
 		}
 	}
 
 	private static void addEdge(int v, int w){
 		edgeInfo[v].add(w);
 	}
+	
+	private static void DFS(Module module, int indent){
+
+for (int i = 0; i < indent; i++)
+	System.out.print("    ");
+System.out.printf("DFS(module[%d])\n", module.id);
+		
+		if (module.id != 0) {
+			module.activeCount += 1;
+		}
+		for (Signal sig : module.sendSignal) {
 			
+for (int i = 0; i < indent; i++)
+	System.out.print("    ");
+System.out.println("sig=" + sig);			
+
+			for (int id : sig.canActiveModule) {
+				DFS(modules[id], indent + 1);
+			}
+		}
+				
+	}
+	
+	private static void output() {
+		for (int i = 1; i < modules.length; i++ ) {
+			System.out.print(modules[i].activeCount + " ");
+		}
+		System.out.println();
+	}
+		
 	private static class Module {
+		int id = -1;
+		int activeCount = 0;
 		Signal activeSignal = new Signal(-1);
-		ArrayList<Signal> sendSignal = new ArrayList<>();
+		ArrayList<Signal> sendSignal = new ArrayList<>();		
 		
 		public String toString() {
 			return (activeSignal + ", " + sendSignal);
