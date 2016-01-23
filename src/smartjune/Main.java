@@ -6,6 +6,7 @@ package smartjune;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,85 +18,35 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Vector;
 
 public class Main {
+	private static int N;
 	
 	/*
 	 * #1136 : Professor Q's Software
 	 */
-	private static Set<Integer>[] edgeInfo;
-	private static Module[] modules;
+	private static int T, M;
 	private static HashMap<Integer, Signal> signalPool;
-	
-	@SuppressWarnings("unchecked")
+	private static Module[] modules;
+	private static Collection<Integer>[] edgeInfo;
+		
 	public static void startSoftware(Scanner scanner) {
-		int T = scanner.nextInt();
-		int N, M;
-						
-		// 临时变量
-		Signal sig;
-		int val, num;
+		T = scanner.nextInt();						
 		for (int t = 0; t < T; t++) {
-			N = scanner.nextInt();  // 模块数
-			M = scanner.nextInt();	// 初始信号数
+			getInput(scanner);
 			
-			signalPool = new HashMap<>();
-			modules = new Module[N + 1];
-			edgeInfo = (TreeSet<Integer>[]) new TreeSet[N + 1];
+			/*
+			 * 顺序遍历输入的modules[]信息，构造有向无环图
+			 * 并在构造图的同时，统计入度
+			 */		
 			for (int i = 0; i <= N; i++) {
-				modules[i] = new Module();
-				edgeInfo[i] = new TreeSet<Integer>();
-			}
-
-			
-			// 将初始数据流作为 module0
-			modules[0].id = 0;
-			for (int i = 0; i < M; i++) {
-				val = scanner.nextInt();	sig = new Signal(val);
-				modules[0].sendSignal.add(sig);
-				
-				signalPool.put(val, sig);
-			}
-			
-			// 读取其他 module 信息
-			for (int i = 1; i <= N; i++) {
-				val = scanner.nextInt();	
-				sig = signalPool.get(val);
-				if (sig == null)
-					sig = new Signal(val);
-				signalPool.put(val, sig);
-				
-				/* 👀
-				 * adjust activeSignal, canActiveModule
-				 */
-				sig.canActiveModule.add(i);
-				modules[i].activeSignal = sig;
-				modules[i].id = i;
-				
-				
-				/* 👀
-				 * adjust sendSignal
-				 */
-				num = scanner.nextInt();
-				for (int j = 1; j <= num; j++) {
-					val = scanner.nextInt();
-					
-					sig = signalPool.get(val);
-					if (sig == null) {
-						sig = new Signal(val);
-						signalPool.put(val, sig);
-					}
-						
-					modules[i].sendSignal.add(sig);				
-				}
-			}
-			
-			
-			// 顺序遍历输入的modules[]信息，构造有向无环图
-			for (int i = 0; i <=N; i++) {
 				for (Signal sign : modules[i].sendSignal) {
-					for (int j : sign.canActiveModule) {
-						addEdge(i, j);
+					for (Module modu : sign.canActiveModule) {
+						addEdge(i, modu.id);
+						//addEdge(i, j);
+						
+						modu.inDegree += 1;						
 					}
 				}
 			}
@@ -113,34 +64,138 @@ for (Object i : ks) {
 }
 */			
 			
+			// 进行拓扑排序
+			toposort();
+		
+			
+			
 			// 深度优先搜索
-			DFS(modules[0], 0);
+			//DFS(modules[0], 0);
 			
 			output();
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private static void getInput(Scanner scanner) {
+		N = scanner.nextInt();  // 模块数
+		M = scanner.nextInt();	// 初始信号数
+		
+		signalPool = new HashMap<>();
+		modules = new Module[N + 1];
+		edgeInfo = (Vector<Integer>[]) new Vector[N + 1];
+		for (int i = 0; i <= N; i++) {
+			modules[i] = new Module();
+			edgeInfo[i] = new Vector<Integer>();
+		}
+		
+		Signal sig;
+		int val, num;
+		// 读取初始数据流，作为 module0
+		modules[0].id = 0;
+		for (int i = 0; i < M; i++) {
+			val = scanner.nextInt();
+			sig = new Signal(val);
+			modules[0].sendSignal.add(sig);			
+			signalPool.put(val, sig);
+		}
+		
+		// 读取其他 module 信息
+		for (int i = 1; i <= N; i++) {
+			val = scanner.nextInt();	
+			sig = signalPool.get(val);
+			if (sig == null)
+				sig = new Signal(val);
+			signalPool.put(val, sig);
+			
+			// 维护 Module.activeSignal, Signal.canActiveModule 信息
+			modules[i].id = i;
+			modules[i].activeSignal = sig;
+			sig.canActiveModule.add(modules[i]);
+						
+			// 维护 Module.sendSignal 信息
+			num = scanner.nextInt();
+			for (int j = 1; j <= num; j++) {
+				val = scanner.nextInt();			
+				sig = signalPool.get(val);
+				if (sig == null) {
+					sig = new Signal(val);
+					signalPool.put(val, sig);
+				}
+					
+				modules[i].sendSignal.add(sig);				
+			}
+		}		
+	}
+	
 	private static void addEdge(int v, int w){
 		edgeInfo[v].add(w);
 	}
 	
-	private static void DFS(Module module, int indent){
+	private static void toposort() {
+		int tail = 0;
+		Map<Integer, Module> seqMap = new TreeMap<>();
+		
+		// 找入度零的点，即起点
+		for (int i = 0; i <= N; i++) {
+			Module moduI = modules[i];
+			if (moduI.inDegree == 0) {
+				seqMap.put(tail, moduI);
+				tail++;
+			}
+		}
+		
+		modules[0].activeCount = 1;  // 设置模块0的访问次数为1
+		int i = 0;
+		while (i < tail) {
+			
+System.out.println("\ni=" + i + " < " + tail + "=tail");
+			
+			Module moduI = seqMap.get(i);
 
+			for (int j : edgeInfo[i]) {
+				
+System.out.println("    j=" + j);				
+				
+				Module moduJ = modules[j];
+				moduJ.activeCount += moduI.activeCount;
+				moduJ.inDegree -= 1;  // ???
+				
+System.out.printf("        modules[%d].activeCount=%d\n", j, moduJ.activeCount);				
+System.out.printf("        modules[%d].inDegree=%d\n", j, moduJ.inDegree);				
+
+				if (moduJ.inDegree == 0) {	
+					seqMap.put(tail, moduJ);
+					tail += 1;
+					
+System.out.printf("        modules[%d].inDegree==0\n", j);
+System.out.printf("            seqMap=%s\n", seqMap.toString());
+System.out.printf("            tail=%d\n", tail);
+				}
+			}
+			
+			i++;
+		}
+
+	}
+	
+	private static void DFS(Module module, int indent){
+/*
 for (int i = 0; i < indent; i++)
 	System.out.print("    ");
 System.out.printf("DFS(module[%d])\n", module.id);
-		
+*/		
 		if (module.id != 0) {
 			module.activeCount += 1;
 		}
 		for (Signal sig : module.sendSignal) {
-			
+/*			
 for (int i = 0; i < indent; i++)
 	System.out.print("    ");
 System.out.println("sig=" + sig);			
-
-			for (int id : sig.canActiveModule) {
-				DFS(modules[id], indent + 1);
+*/
+			for (Module mdu : sig.canActiveModule) {
+				DFS(mdu, indent + 1);
 			}
 		}
 				
@@ -152,33 +207,35 @@ System.out.println("sig=" + sig);
 		}
 		System.out.println();
 	}
-		
+	
 	private static class Module {
 		int id = -1;
+		int inDegree = 0;
 		int activeCount = 0;
 		Signal activeSignal = new Signal(-1);
 		ArrayList<Signal> sendSignal = new ArrayList<>();		
 		
 		public String toString() {
-			return (activeSignal + ", " + sendSignal);
+			return ("modules[" + id + "]");
+			//return (activeSignal + ", " + sendSignal);
 		}
-
 	}
 	
 	private static class Signal {
 		int val;
-		List<Integer> canActiveModule = new ArrayList<>();
+		List<Module> canActiveModule = new ArrayList<>();
+		//List<Integer> canActiveModule = new ArrayList<>();
 		
 		Signal(int val) {
 			this.val = val;
 		}
 		
 		public String toString() {
-			return Integer.toString(val);
-			//return (val + " " + canActiveModule.toString());
+			//return Integer.toString(val);
+			return (val + "/" + canActiveModule.toString());
 		}
 	}
-		
+			
 
 	/*
 	 * #1088 : Right-click Context Menu 未完成❌
@@ -270,7 +327,7 @@ System.out.println("sig=" + sig);
 	/*
 	 * #1090 : Highway
 	 */
-	private static int N;
+	// private static int N;
 	// Key: where a car comes in, i.e. x[]; Value: the index associated
 	private static TreeMap<Integer, Integer> x_idx;
 	// Key: where a car leaves, i.e. y[]; Value: the time associated
