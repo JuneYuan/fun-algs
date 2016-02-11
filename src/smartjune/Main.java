@@ -444,13 +444,12 @@ System.out.printf("        tj = %.2f\n", tj);
 
 	
 	/*
-	 * ❌
-	 * #1091 : Clicker 未完成！
+	 * #1091 : Clicker ❌WA
 	 */
-	private static int N, M;  // # of heros and coins
-	private static int[] benefit, expense, maxLevel;
-	private static int[][] f;
-	private static int ret;
+	private static int N, M;	// # of heros and coins
+	private static int[] benefit, expense, maxLevel;  // info of EACH hero
+	private static int[][] f;	// recursive records
+	private static int ret;		// optimal solution
 	
 	public static void clicker(Scanner scanner) {
 		N = scanner.nextInt();
@@ -463,13 +462,18 @@ System.out.printf("        tj = %.2f\n", tj);
 		expense = new int[N + 1];
 		f = new int[N + 1][M + 1];
 		
-		// 边界条件
+		process(scanner);
+		
+		getResult();		
+	}
+
+	private static void process(Scanner scanner) {
+		// 边界条件：f[0][0..M] = 0
 		for (int v = 0; v <= M; v++)
 			f[0][v] = 0;
 		
-		// 递归过程
+		// 递归过程：英雄1..N
 		for (int i = 1; i <= N; i++) {  // 每个英雄
-StdOut.println("i=" + i);			
 			benefit[i] = scanner.nextInt();
 			expense[i] = scanner.nextInt();
 			
@@ -478,34 +482,35 @@ StdOut.println("i=" + i);
 						
 			for (int v = expense[i], add = v, w = 0; 
 					v - add < M; w = v, v += add) { // 改变使用金币数
-				if (v > M)    v = M;
-StdOut.println("    v=" + v);
-								
+
+				if (v > M)    v = M;								
 				for (int j = v - 1; j > w; j--) 
 					f[i][j] = f[i][v - add];
-StdOut.printf("        f[%d][%d..%d]=%d\n", i, v - 1, w + 1, f[i][v - add]);				
 
 				f[i][v] = f[i - 1][v];  // 假设不升级第 i 个英雄
-StdOut.printf("        f[%d][%d]=%d\n", i, v, f[i][v]);
 				
+				// 假设升级第 i 个英雄
 				for (int lev = 1, exps = expense[i], bene = benefit[i], t; 
 						lev <= maxLevel[i]; 
-						lev++, exps += expense[i] * 1.07, bene += benefit[i]) {  // 英雄所提升的等级，可任选
+						lev++, exps += (int) (expense[i] * Math.pow(1.07, lev - 1)), bene += benefit[i]) {  // 英雄所提升的等级，可任选
 					
 					if (v >= exps) {						
 						t = f[i - 1][v - exps] + bene;
-int s = f[i][v];						
 						if (t > f[i][v])	f[i][v] = t;
-StdOut.printf("        lev=%d\n", lev);
-StdOut.print("            ");
-StdOut.printf("v=%d >= expense[%d]=%d, f[%d][%d] = Max{%d, %d} = %d\n", v, lev, exps, i, v, s, t, f[i][v]);
 					}
 				}			
 				
 				add *= 1.07;
 			}
 		}
-			
+	}
+	
+	private static void getResult() {
+		for (int i = 1; i <= M; i++) {
+			if (f[N][i] > ret)
+				ret = f[N][i];
+		}
+		System.out.println(ret);
 	}
 
 	
