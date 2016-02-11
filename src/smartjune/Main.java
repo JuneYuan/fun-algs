@@ -4,6 +4,11 @@ package smartjune;
  * 1. 类名为 Main; 2. 类中包含入口 main 函数; 3. 不要使用 package!
  */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,70 +21,47 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import edu.princeton.cs.algs4.StdOut;
+
 public class Main {
-	private static int N;
 	
 	/*
-	 * #1136 : Professor Q's Software
+	 * #1136 : Professor Q's Software 未完成❌
 	 */
-	private static int T, M;
+	private static int T, N, M;
 	private static HashMap<Integer, Signal> signalPool;
 	private static Module[] modules;
 	private static Collection<Integer>[] edgeInfo;
 		
-	public static void startSoftware(Scanner scanner) {
-		T = scanner.nextInt();						
+	public static void startSoftware(InputReader in, PrintWriter out) {
+		T = in.nextInt();						
 		for (int t = 0; t < T; t++) {
-			getInput(scanner);
-			
-			/*
-			 * 顺序遍历输入的modules[]信息，构造有向无环图
-			 * 并在构造图的同时，统计入度
-			 */		
-			for (int i = 0; i <= N; i++) {
-				for (Signal sign : modules[i].sendSignal) {
-					for (Module modu : sign.canActiveModule) {
-						addEdge(i, modu.id);
-						//addEdge(i, j);
-						
-						modu.inDegree += 1;						
-					}
-				}
-			}
-/*	打印有向无环图的邻接表信息		
+			getInput(in);		
+			makeGraph();
+	
 System.out.printf("\nT=%d\n", t);			
 for (int i = 0; i <= N; i++)
-	System.out.printf("模块 %d 可启动模块 %s\n", i, edgeInfo[i]);
-*/
-			
-/* 打印 signalPool
-Set ks = signalPool.keySet();
-for (Object i : ks) {
-	i = (Integer)i;
-	System.out.println(signalPool.get(i));				
-}
-*/			
+	System.out.printf("模块 %d 可启动模块 %s\n", i, edgeInfo[i]);			
 			
 			// 进行拓扑排序
 			toposort();
-		
-			
 			
 			// 深度优先搜索
 			//DFS(modules[0], 0);
 			
-			output();
+			output(out);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void getInput(Scanner scanner) {
-		N = scanner.nextInt();  // 模块数
-		M = scanner.nextInt();	// 初始信号数
+	private static void getInput(InputReader in) {
+		N = in.nextInt();  // 模块数
+		M = in.nextInt();	// 初始信号数
 		
 		signalPool = new HashMap<>();
 		modules = new Module[N + 1];
@@ -94,19 +76,23 @@ for (Object i : ks) {
 		// 读取初始数据流，作为 module0
 		modules[0].id = 0;
 		for (int i = 0; i < M; i++) {
-			val = scanner.nextInt();
-			sig = new Signal(val);
-			modules[0].sendSignal.add(sig);			
-			signalPool.put(val, sig);
+			val = in.nextInt();
+			sig = signalPool.get(val);
+			if (sig == null) {
+				sig = new Signal(val);
+				signalPool.put(val, sig);
+			}
+			modules[0].sendSignal.add(sig);
 		}
 		
 		// 读取其他 module 信息
 		for (int i = 1; i <= N; i++) {
-			val = scanner.nextInt();	
+			val = in.nextInt();	
 			sig = signalPool.get(val);
-			if (sig == null)
+			if (sig == null) {
 				sig = new Signal(val);
-			signalPool.put(val, sig);
+				signalPool.put(val, sig);
+			}
 			
 			// 维护 Module.activeSignal, Signal.canActiveModule 信息
 			modules[i].id = i;
@@ -114,9 +100,9 @@ for (Object i : ks) {
 			sig.canActiveModule.add(modules[i]);
 						
 			// 维护 Module.sendSignal 信息
-			num = scanner.nextInt();
-			for (int j = 1; j <= num; j++) {
-				val = scanner.nextInt();			
+			num = in.nextInt();
+			for (int j = 0; j < num; j++) {
+				val = in.nextInt();			
 				sig = signalPool.get(val);
 				if (sig == null) {
 					sig = new Signal(val);
@@ -128,6 +114,20 @@ for (Object i : ks) {
 		}		
 	}
 	
+	private static void makeGraph() {
+		/* 顺序遍历输入的modules[]信息，构造有向无环图
+		 * 并在构造图的同时，统计入度
+		 */		
+		for (int i = 0; i <= N; i++) {
+			for (Signal sign : modules[i].sendSignal) {
+				for (Module modu : sign.canActiveModule) {
+					addEdge(i, modu.id);						
+					modu.inDegree += 1;						
+				}
+			}
+		}
+	}
+	
 	private static void addEdge(int v, int w){
 		edgeInfo[v].add(w);
 	}
@@ -136,7 +136,7 @@ for (Object i : ks) {
 		int tail = 0;
 		Map<Integer, Module> seqMap = new TreeMap<>();
 		
-		// 找入度零的点，即起点
+		// 找入度零的点（可能不只是起点）
 		for (int i = 0; i <= N; i++) {
 			Module moduI = modules[i];
 			if (moduI.inDegree == 0) {
@@ -150,20 +150,20 @@ for (Object i : ks) {
 		while (i < tail) {
 			
 System.out.println("\ni=" + i + " < " + tail + "=tail");
-			
-			Module moduI = seqMap.get(i);
 
-			for (int j : edgeInfo[i]) {
+			Module moduI = seqMap.get(i);
+			for (int j : edgeInfo[i]) {	
 				
-System.out.println("    j=" + j);				
+System.out.println("    j=" + j);	
 				
 				Module moduJ = modules[j];
-				moduJ.activeCount += moduI.activeCount;
+				moduJ.activeCount += moduI.activeCount % 142857;
+				moduJ.activeCount = moduJ.activeCount % 142857;
 				moduJ.inDegree -= 1;  // ???
-				
+			
 System.out.printf("        modules[%d].activeCount=%d\n", j, moduJ.activeCount);				
-System.out.printf("        modules[%d].inDegree=%d\n", j, moduJ.inDegree);				
-
+System.out.printf("        modules[%d].inDegree=%d\n", j, moduJ.inDegree);	
+			
 				if (moduJ.inDegree == 0) {	
 					seqMap.put(tail, moduJ);
 					tail += 1;
@@ -171,41 +171,20 @@ System.out.printf("        modules[%d].inDegree=%d\n", j, moduJ.inDegree);
 System.out.printf("        modules[%d].inDegree==0\n", j);
 System.out.printf("            seqMap=%s\n", seqMap.toString());
 System.out.printf("            tail=%d\n", tail);
+				
 				}
 			}
 			
 			i++;
 		}
-
 	}
 	
-	private static void DFS(Module module, int indent){
-/*
-for (int i = 0; i < indent; i++)
-	System.out.print("    ");
-System.out.printf("DFS(module[%d])\n", module.id);
-*/		
-		if (module.id != 0) {
-			module.activeCount += 1;
-		}
-		for (Signal sig : module.sendSignal) {
-/*			
-for (int i = 0; i < indent; i++)
-	System.out.print("    ");
-System.out.println("sig=" + sig);			
-*/
-			for (Module mdu : sig.canActiveModule) {
-				DFS(mdu, indent + 1);
-			}
-		}
-				
-	}
-	
-	private static void output() {
+	private static void output(PrintWriter out) {
 		for (int i = 1; i < modules.length; i++ ) {
-			System.out.print(modules[i].activeCount + " ");
+			int r = modules[i].activeCount % 142857;
+			out.print(r + " ");
 		}
-		System.out.println();
+		out.println();
 	}
 	
 	private static class Module {
@@ -468,35 +447,66 @@ System.out.printf("        tj = %.2f\n", tj);
 	 * ❌
 	 * #1091 : Clicker 未完成！
 	 */
+	private static int N, M;  // # of heros and coins
+	private static int[] benefit, expense, maxLevel;
+	private static int[][] f;
+	private static int ret;
+	
 	public static void clicker(Scanner scanner) {
-		int N = scanner.nextInt();  // # heros
-		int M = scanner.nextInt();  // # coins
-		int[] A = new int[N];		// addon of damage raise
-		int[] B = new int[N];		// multiple of level-raising-cost
-		for (int i = 0; i < N; i++) {
-			A[i] = scanner.nextInt();
-			B[i] = scanner.nextInt();
-		}
+		N = scanner.nextInt();
+		M = scanner.nextInt();
 		
-		int[][] f = new int[N][M];
+		maxLevel = new int[N + 1];
+		maxLevel[0] = (int) (Math.log(M) / Math.log(1.07));
 		
-		for (int v = 0; v < M; v++)
+		benefit = new int[N + 1];
+		expense = new int[N + 1];
+		f = new int[N + 1][M + 1];
+		
+		// 边界条件
+		for (int v = 0; v <= M; v++)
 			f[0][v] = 0;
 		
-		for (int i = 1; i < N; i++) {
+		// 递归过程
+		for (int i = 1; i <= N; i++) {  // 每个英雄
+StdOut.println("i=" + i);			
+			benefit[i] = scanner.nextInt();
+			expense[i] = scanner.nextInt();
 			
-			for (int v = 0; v < M; v++) {
-				f[i][v] = f[i][v] >= f[i][v] ? f[i][v] : f[i - 1][v];
+			double numerator = 1 + M * 0.07 / expense[i] / 1.07;
+			maxLevel[i] = (int) (Math.log(numerator) / Math.log(1.07));
+						
+			for (int v = expense[i], add = v, w = 0; 
+					v - add < M; w = v, v += add) { // 改变使用金币数
+				if (v > M)    v = M;
+StdOut.println("    v=" + v);
+								
+				for (int j = v - 1; j > w; j--) 
+					f[i][j] = f[i][v - add];
+StdOut.printf("        f[%d][%d..%d]=%d\n", i, v - 1, w + 1, f[i][v - add]);				
+
+				f[i][v] = f[i - 1][v];  // 假设不升级第 i 个英雄
+StdOut.printf("        f[%d][%d]=%d\n", i, v, f[i][v]);
 				
-				for (int lvl = 0; lvl < 146; lvl++) {
+				for (int lev = 1, exps = expense[i], bene = benefit[i], t; 
+						lev <= maxLevel[i]; 
+						lev++, exps += expense[i] * 1.07, bene += benefit[i]) {  // 英雄所提升的等级，可任选
 					
-				}
+					if (v >= exps) {						
+						t = f[i - 1][v - exps] + bene;
+int s = f[i][v];						
+						if (t > f[i][v])	f[i][v] = t;
+StdOut.printf("        lev=%d\n", lev);
+StdOut.print("            ");
+StdOut.printf("v=%d >= expense[%d]=%d, f[%d][%d] = Max{%d, %d} = %d\n", v, lev, exps, i, v, s, t, f[i][v]);
+					}
+				}			
+				
+				add *= 1.07;
 			}
 		}
-		
-		
-		
-	}	
+			
+	}
 
 	
 	/*
@@ -1373,5 +1383,31 @@ System.out.println(red.length() + " " + yellow.length() + " " + blue.length());
 		
 
 	}
+
+	static class InputReader {
+        public BufferedReader reader;
+        public StringTokenizer tokenizer;
+
+        public InputReader(InputStream stream) {
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+            tokenizer = null;
+        }
+
+        public String next() {
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+                try {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return tokenizer.nextToken();
+        }
+
+        public int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+    }
 
 }
