@@ -30,6 +30,84 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Main {
 	
+	
+	/*
+	 * #1032 : 最长回文子串
+	 */
+	private static int N, L;
+	private static String inputStr, handledStr, Ret;
+	private static String[] f;
+	private static int[] helper;
+	
+	public static void palindromeSubStr(Scanner scanner) {
+		N = scanner.nextInt();
+		for (int i = 0, j = 0; i < N; i++) {
+			inputStr = scanner.next();
+			handledStr = new String();
+			L = inputStr.length();
+			Ret = inputStr.substring(0, 1);
+			f = new String[2 * L - 1];
+			helper = new int[2 * L - 1];
+			
+			for (int t = 1; t <= L; t++) {
+				handledStr += inputStr.substring(t - 1, t);
+				if (t < L)
+					handledStr += "@";
+			}
+			
+			for (int t = 0; t < f.length; t++) {
+				f[t] = handledStr.substring(t, t + 1);
+				helper[t] = 1;
+			}			
+			
+			// 枚举中心位置
+			for (int midIdx = 1; midIdx < handledStr.length() - 1; midIdx++) {
+				f[midIdx] = "";
+				String subStr;
+				int span = midIdx < handledStr.length() / 2 ? midIdx : handledStr.length() - 1 - midIdx;
+				
+				// 找出 f(midIdx) 的最小值，或者是 k 的循环初始值
+				int t = 2 * j - midIdx;
+				if (t >= 0 && t < helper.length) {
+					int c = helper[t];
+					int d = helper[j] - 2 * (midIdx - j);
+					j = c < d ? c : d;
+					j = j < 1 ? 1 : j;
+					j = j > span ? span : j;
+				}
+				
+				for (int k = j; k <= span; k++) {
+					char x = handledStr.charAt(midIdx - k);
+					char y = handledStr.charAt(midIdx + k);
+					subStr = handledStr.substring(midIdx - k, midIdx + k + 1);
+					subStr = subStr.replaceAll("@", "");
+					if (x == y && f[midIdx].length() <= subStr.length())
+						f[midIdx] = subStr;
+					else
+						break;
+				}
+				
+				// 找出使其右边界 j + f(j) / 2 最大的 j
+				helper[midIdx] = f[midIdx].length();
+				int a = midIdx + helper[midIdx] / 2;
+				int b = midIdx - 1 + helper[midIdx - 1] / 2;
+				if (a > b) {
+					j = midIdx;
+				}
+				
+				if (f[midIdx].length() > Ret.length()) {
+					Ret = f[midIdx];
+				}
+
+				
+	
+			}
+			
+			System.out.println(Ret);
+		}
+	}
+
+	
 	/*
 	 * #1136 : Professor Q's Software 未完成❌
 	 */
