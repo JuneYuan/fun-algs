@@ -35,14 +35,15 @@ public class Main {
 	 * #1032 : 最长回文子串
 	 */
 	private static int L, L1;
-	private static String oldStr, newStr, Ret;
+	private static String oldStr, Ret;
+	private static char[] newStr;
 	private static String[] f;		// f[i]: 以 i 为中心的最长子串
 	private static int[] p;	// f[i] 的长度
 
 	public static void manacher(Scanner scanner) {
 		int id = 0, right = 0;
 		int max = 0;
-		for (int i = 1; i < newStr.length() - 1; i++) {			
+		for (int i = 1; i < newStr.length - 1; i++) {			
 			if (right > i) {
 				int j = 2*id - i;
 				p[i] = p[j] < right - i ? p[j] : right - i;
@@ -50,7 +51,7 @@ public class Main {
 			
 			
 			while (i - p[i] >= 0 && i + p[i] < L1
-					&& newStr.charAt(i-p[i]) == newStr.charAt(i+p[i]))
+					&& newStr[i-p[i]] == newStr[i+p[i]])
 				p[i]++;
 		
 			
@@ -72,12 +73,12 @@ public class Main {
 		
 		for (int t = 0; t < T; t++) {
 			oldStr = scanner.next();
-			newStr = "";
 			// newStr = "$";
 			L = oldStr.length();
 			L1 = 2*L + 1;
+			newStr = new char[L1];
 			for (int i = 0; i < L1; i++) {
-				newStr += (i%2 == 0) ? "#" : oldStr.charAt(i/2);
+				newStr[i] = (i%2 == 0) ? '#' : oldStr.charAt(i/2);
 			}
 			
 			//System.out.println(newStr);
