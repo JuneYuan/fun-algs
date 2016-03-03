@@ -34,87 +34,60 @@ public class Main {
 	/*
 	 * #1032 : 最长回文子串
 	 */
-	private static int N, L;
-	private static String inputStr, handledStr, Ret;
+	private static int L, L1;
+	private static String oldStr, newStr, Ret;
 	private static String[] f;		// f[i]: 以 i 为中心的最长子串
-	private static int[] helper;	// f[i] 的长度
-	
-	public static void palindromeSubStr(Scanner scanner) {
-		N = scanner.nextInt();
-		for (int i = 0; i < N; i++) {
-			inputStr = scanner.next();
-			handleInput(scanner);
-			
-			int mx = 0, j = 0;  // 最大右边界值，及其对应的中心位置
-			// 枚举中心位置
-			for (int mid = 1; mid < handledStr.length() - 1; mid++) {
-				f[mid] = "";
-				String subStr;
-				int span = mid < handledStr.length() / 2 ? mid : handledStr.length() - 1 - mid;
-				
-				// 得出f(midIdx)长度的下界： Min{ f(2*j-midIdx), f(midIdx)-2*(midIdx-j) }
-				// 确定 k 的循环初始值
-				// 以避免不必要的重复匹配
-				int k = 1;
-				if (mx > mid) {
-					int t = 2 * j - mid;
-					if (t >= 0 && t < helper.length) {
-						int c = helper[t];
-						int d = helper[j] - 2 * (mid - j);
-						k = c < d ? c/2 : d/2;
-					}
-				}
+	private static int[] p;	// f[i] 的长度
 
-				k = k < 1 ? 1 : k;
-				k = k > span ? span : k;
-				for ( ; k <= span; k++) {
-					char x = handledStr.charAt(mid - k);
-					char y = handledStr.charAt(mid + k);
-					subStr = handledStr.substring(mid - k, mid + k + 1);
-					subStr = subStr.replaceAll("@", "");
-					if (x == y && f[mid].length() <= subStr.length())
-						f[mid] = subStr;
-					else
-						break;
-				}
-				
-				// 找出使其右边界 (j + f(j) / 2) 最大的 j
-				helper[mid] = f[mid].length();
-				int a = mid + helper[mid] / 2;
-				int b = j + helper[j] / 2;
-				if (a > b) {
-					mx = a;
-					j = mid;
-				}
-				
-				if (f[mid].length() > Ret.length()) {
-					Ret = f[mid];
-				}
-				
+	public static void manacher(Scanner scanner) {
+		int id = 0, right = 0;
+		int max = 0;
+		for (int i = 1; i < newStr.length() - 1; i++) {			
+			if (right > i) {
+				int j = 2*id - i;
+				p[i] = p[j] < right - i ? p[j] : right - i;
 			}
 			
-			System.out.println(Ret.length());
+			
+			while (i - p[i] >= 0 && i + p[i] < L1
+					&& newStr.charAt(i-p[i]) == newStr.charAt(i+p[i]))
+				p[i]++;
+		
+			
+			if (p[i] + i > right) {
+				id = i;
+				right = p[i] + i;
+			}
+			
+			if (max < p[i] - 1)
+				max = p[i] - 1;			
 		}
+		
+		System.out.println(max);
 	}
-
-	private static void handleInput(Scanner scanner) {
-		handledStr = new String();
-		L = inputStr.length();
-		Ret = inputStr.substring(0, 1);
-		f = new String[2 * L - 1];
-		helper = new int[2 * L - 1];
+	
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int T = scanner.nextInt();
 		
-		// 由 inputStr 得到 handledStr, 保证得到一个奇数长度的字符串
-		for (int t = 1; t <= L; t++) {
-			handledStr += inputStr.substring(t - 1, t);
-			if (t < L)
-				handledStr += "@";
-		}
-		
-		for (int t = 0; t < f.length; t++) {
-			f[t] = handledStr.substring(t, t + 1);
-			helper[t] = 1;
+		for (int t = 0; t < T; t++) {
+			oldStr = scanner.next();
+			newStr = "";
+			// newStr = "$";
+			L = oldStr.length();
+			L1 = 2*L + 1;
+			for (int i = 0; i < L1; i++) {
+				newStr += (i%2 == 0) ? "#" : oldStr.charAt(i/2);
+			}
+			
+			//System.out.println(newStr);
+			
+			p = new int[L1];			
+						
+			manacher(scanner);
 		}	
+		
+		scanner.close();
 	}
 
 	
