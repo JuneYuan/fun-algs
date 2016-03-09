@@ -1,5 +1,10 @@
 package smartjune;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 public class P1014 {
 	private static int N;  // 词条个数
@@ -48,27 +53,53 @@ public class P1014 {
 	}
 	
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		InputReader in = new InputReader(System.in);
+		PrintWriter out = new PrintWriter(System.out);
 		String key;
 		
-		for (int i = 0; i < nodes.length; i++) {
+		for (int i = 0; i < nodes.length; i++)
 			nodes[i] = new Node();
-		}
 		
-		N = scanner.nextInt();		
+		N = in.nextInt();		
 		for (int i = 0; i < N; i++) {
-			key = scanner.next();
+			key = in.next();
 			put(key, i + 1);
 		}
 		
-		T = scanner.nextInt();
+		T = in.nextInt();
 		for (int i = 0; i < T; i++) {
-			key = scanner.next();
+			key = in.next();
 			System.out.println(numOfKeysWithPrefix(key));
 		}
 		
-		scanner.close();
+		out.close();
 	}
 	
+	private static class InputReader {
+        public BufferedReader reader;
+        public StringTokenizer tokenizer;
+
+        public InputReader(InputStream stream) {
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+            tokenizer = null;
+        }
+
+        public String next() {
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+                try {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return tokenizer.nextToken();
+        }
+
+        public int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+    }
+
 }
 
