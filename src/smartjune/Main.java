@@ -29,26 +29,23 @@ import java.util.Vector;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Main {
-	
-	
 	/*
 	 * #1032 : 最长回文子串
 	 */
-	private static int L, L1;
-	private static String oldStr, Ret;
+	private static int L, L1, ret;
+	private static String oldStr;
 	private static char[] newStr;
-	private static String[] f;		// f[i]: 以 i 为中心的最长子串
 	private static int[] p;	// f[i] 的长度
 
 	public static void manacher(Scanner scanner) {
-		int id = 0, right = 0;
-		int max = 0;
-		for (int i = 1; i < newStr.length - 1; i++) {			
+		int id = 0, right = 0;  // 辅助变量，用于求 p[i]
+		ret = 0;
+		for (int i = 1; i < newStr.length - 1; i++) {
+			p[i] = 1;
 			if (right > i) {
 				int j = 2*id - i;
 				p[i] = p[j] < right - i ? p[j] : right - i;
-			}
-			
+			}			
 			
 			while (i - p[i] >= 0 && i + p[i] < L1
 					&& newStr[i-p[i]] == newStr[i+p[i]])
@@ -60,11 +57,11 @@ public class Main {
 				right = p[i] + i;
 			}
 			
-			if (max < p[i] - 1)
-				max = p[i] - 1;			
+			if (ret < p[i] - 1)
+				ret = p[i] - 1;			
 		}
 		
-		System.out.println(max);
+		System.out.println(ret);
 	}
 	
 	public static void main(String[] args) {
