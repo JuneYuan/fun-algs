@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class P49 {
 
-	public List<List<String>> groupAnagrams2(String[] strs) {
+	public List<List<String>> groupAnagrams_nLlogL(String[] strs) {
 		List<List<String>> result = new ArrayList<>();
 		if (strs.length < 2) {
 			result.add(Arrays.asList(strs));
@@ -20,6 +20,7 @@ public class P49 {
 			char[] strChar = str.toCharArray();
 			Arrays.sort(strChar);
 			String strSorted = String.valueOf(strChar);
+			// append if already exist; or create if not int the map yet
 			if (multiMap.containsKey(strSorted)) {
 				ArrayList<String> aList = multiMap.get(strSorted);
 				aList.add(str);
@@ -36,7 +37,7 @@ public class P49 {
 		return result;
 	}
 	
-    public List<List<String>> groupAnagrams1(String[] strs) {
+    public List<List<String>> groupAnagrams_Ln2(String[] strs) {
     	List<List<String>> result = new ArrayList<>();
     	if (strs.length < 2) {
     		result.add(Arrays.asList(strs));
