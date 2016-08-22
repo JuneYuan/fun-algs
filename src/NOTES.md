@@ -102,9 +102,36 @@ for (int i = 1, ans = i; ...) {...}
 1. 思路：首先将 start 入队，随后弹出该节点，比较其和 end 是否相同；再从 dict 中选出所有距离为1的单词入队，并将所有与当前节点距离为1且未访问过的节点（需要使用哈希表）入队，方便下一层遍历时使用，直至队列为空。
 1. 给定数据结构特征选用合适的实现，遇到哈希表时多用其查找的O(1) 特性。
 1. Bug：`while(qLen-- > 0)`写成了`while(qLen-- >＝ 0)`，导致异常，查了很久。
+2. BFS遍历方式，这道题里，只能是一段一段地遍历，像这样
+```
+		while (!q.isEmpty()) {
+		    // Operation... @_@看这里
+		    int qLen = q.size();
+		    while (qLen-- > 0) {
+		    	// Operation...
+		    	q.offer(nextWord);
+		    }
+		}
+```
+而不能是一个一个地遍历，像这样
+```
+		int i = 0;
+		while (i < seq.size()) {
+			// Operation...
+			seq.add(new Pair(newX, newY));
+		
+			i++;
+		}
+```
+
 
 ### P217 Contains Duplicate 数组元素查重
 利用HashTable查找的O(1)特性。遍历数组元素，每次插入集合，若不成功，则return true；全部插入成功，返回false。
+
+### P322 Coin Change 换零钱
+典型动态规划题目。
+1. 用贪心会错，因为测试数据不一定都像`[1, 2, 5]`一样有`单元货币`，贪心判定为无解的，实际可能有解。（考虑样例`coins = [186,419,83,408]`，`amount = 6249`，用贪心，6249 = 419*14 + 186*2 + 11，无解，返回-1，实际则应返回20）
+2. 动态规划：定义`dp[i]`表示`amount为i时最少需要的硬币数`。那么用 i 依次减去每个硬币的面值，看剩下总额最少需要多少硬币数，即递推公式`dp(i) = Min(dp(i), Min(dp(i - coins[0..N])) + 1)`，N为coins[]数组长度。
 
 ### P378 Kth Smallest Element in a Sorted Matrix
 在行列均排好序的矩阵中找第k小的数字，难度Medium。
