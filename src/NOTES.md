@@ -124,6 +124,19 @@ for (int i = 1, ans = i; ...) {...}
 		}
 ```
 
+### P137 Single Number II 找单数（3n+1）
+#### 解法一：逐位处理
+1. 思路：`2n+1`可以利用二进制异或运算特性，`3n+1`呢？——三个相同的数相加，用二进制表示，则结果的每一位都能被3整除。所以用一个`Integer.size()`大小的数组记录每一位累加的结果即可。
+
+		for (int i = 0; i < Integer.SIZE; i++) 
+			for (int j = 0; j < nums.length; j++) 
+时间复杂度：`O(3n+1)*32`（注：32代表整型变量的比特数）。			
+2. 求整数`x`从低位到高位的第`i`个比特：`(x >> i) & 1`。
+
+#### 解法二：算是动态规划吧
+可以推广到`K*N + L`问题。定义数组`x[]`，长度为`K`。遍历整个数组，对于读到的每一个值`a`而言，`x[i]`的含义如下：它的每一个二进制位，表示目前为止该二进制位值为1的数有`i`个。得状态转化关系：`x[j] = (x[j - 1] & a) | (x[j] & ~a)`。
+> "The first part indicates the carries from previous one. The second part indicates the bits not carried to next one."
+
 
 ### P217 Contains Duplicate 数组元素查重
 利用HashTable查找的O(1)特性。遍历数组元素，每次插入集合，若不成功，则return true；全部插入成功，返回false。
