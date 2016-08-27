@@ -85,6 +85,12 @@ for (int i = 1, ans = i; ...) {...}
 
 时间复杂度：遍历字符串数组，需O(n)，对单个字符串排序O(LlogL)，整体为O(nLlogL)。
 
+### P53 Maximum Subarray 求连续子数组的最大和
+
+#### 方法一：Kadane's algorithm / 贪心
+逐个遍历数组元素并将其加入累加和`sum`，如果累加和大于记录的最大和`maxSum`，则更新`maxSum`。如果`sum`小于等于0，表明之前的子数组不会提高后续数组的累加和，故抛弃之前的子数组，将`sum`重新置为0。这样遍历数组即可得到maxSum。
+
+#### 方法二：分治 / DP
 
 ### P58 Length of Last Word
 1. 不仅需要考虑`s == null || s.length() == 0`的情况，还要考虑s只包含空格的情况，所以首先要`trim()`去除头尾的空格。
@@ -221,6 +227,12 @@ LintCode P82 找单数（2n+1）的follow up。
 2. 求一个数二进制序列最低位的1：`x - (x & (x - 1))`。
 
 时间复杂度：两次遍历，O(n)。
+
+### P92 Backpack 同P125（01背包）
+
+
+### P125 Backpack II 01背包
+
 
 ### P138 Subarray Sum
 求元素和为零的子序列
