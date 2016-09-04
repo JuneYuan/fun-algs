@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.linkedlist;
 
 //模拟加法运算
 public class P2 {

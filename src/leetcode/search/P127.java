@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.search;
 
 import java.util.HashSet;
 import java.util.LinkedList;
