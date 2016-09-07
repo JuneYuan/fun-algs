@@ -1,4 +1,4 @@
-package lintcode;
+package lintcode.array;
 
 public class P31 {
     public int partitionArray(int[] nums, int k) {
