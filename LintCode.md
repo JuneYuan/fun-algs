@@ -1,6 +1,6 @@
 # LintCode notes
 
-### P31 Array Partitioning
+### P31 Array Partitioning 数组划分
 方法一：自左向右
 用下标`i`遍历数组`nums`，同时用下标`right`保存分界点（>=k的索引）。遍历结束，`right`为所求结果。
 
@@ -92,8 +92,7 @@ WA：虽然注意到了尾行、尾列初始化的问题，但还是漏掉了右
 
 
 
-### P158 Two Strings Are Anagrams
-判断两字符串是否变位词。
+### P158 Two Strings Are Anagrams 判断两字符串是否变位词
 
 方法一：hashmap 统计字频
 
