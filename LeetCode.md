@@ -1,8 +1,8 @@
-# NOTES
-
----
-
 # LeetCode Notes
+
+### P2 Add Two Numbers 模拟链表加法
+
+### P3 Longest Substring Without Repeating Characters 最长不重复子串
 
 ### P6 Zigzag
 一层循环：每个Unit。注：一长一短为一个单元，包含numRows + (numRows-2)个字符
@@ -35,14 +35,16 @@ Input: "+", "+-2", "-2147483648"
 
 ### P21 Merge Two Sorted Lists 合并两个已排序链表
 思（tao）路（lu）：
-1. 使用`dummy`节点可避免判断合并后的表头节点来自`l1`还是`l2`；
-2. 使用`curr`节点来记录下一个待插入节点的前驱；
-3. 当`l1`或`l2`有一个为空时，退出循环，并取非空链表的头部作为`curr`节点的后继。
+1. 使用`dummy`节点，可避免判断合并后的表头节点来自`l1`还是`l2`；
+2. 使用`curr`节点来记录下一个待插入节点的前驱，自然`curr`应初始化为`dummy`；
 
 源码分析：
-1. 异常处理，已包含在`dummy.next`中
+1. 异常处理，已包含在`dummy.next`中。
+2. 对非空的`l1, l2`循环处理，将较小者链接到`curr.next`，向后递推`curr`
+3. 最后处理`l1`或`l2`有一个为空：退出`while`循环，将非空链表头链接到`curr.next`
+4. 返回`dummy.next`，即最终的首元素
 
-### P26 Remove Duplicates from Sorted Array
+### P26 Remove Duplicates from Sorted Array 数组元素去重
 1. 两根指针。一个指针(下标)遍历数组，另一个指针(下标)负责将不重复的数置于原数组的正确位置。
 
 2. 很简单，但出现编译错误——
@@ -51,10 +53,40 @@ int ans;
 for (int i = 1, ans = i; ...) {...}
 ```
 
-### P28 strStr
+### P28 strStr 查找子串
 在源字符串source中查找子串target。
 1. 双重for循环
 2. KMP
+
+### P33 Search in Rotated Sorted Array 旋转数组的二分查找
+思路可以参考二分查找，只是这里原本有序的数组被分成前后两段并颠倒过了，所以中间元素的比对更加复杂。**对于旋转数组可通过画图来辅助分析。**
+
+这里分别用`l`, `m`,`r`表示二分查找过程中左端、中间、右端的元素下标，然后考虑如下两种方法。
+
+#### 方法一：直接比较target与A[m]
+旋转之后，有两个不确定因素会影响二分法下一步搜索区间的选取：1.`m`与断点`p`的大小关系；2. `target`落在左半边还是右半边。于是可以讨论所有可能情况——
+
+若`target == A[m]`，直接返回`m`，否则
+1. `m > k`，**隐含条件`A[m] < A[L]`**
+![](http://ww4.sinaimg.cn/large/6b9392ddgw1f7l8b4xk3xj20b806nt96.jpg)
+当`target < A[m]`，搜索区间应为`[L, m - 1]`；
+当`target > A{m]`，还需讨论，
+ + 当`target < A[L]`，搜索区间应为`[m + 1, r]`;
+ + 当`target >= A[L]`，搜索区间应为`[L, m - 1]`。
+1. `m < k`，隐含条件**`A[m] > A[L]`**
+![](http://ww3.sinaimg.cn/large/6b9392ddgw1f7l8cam3eij20bl07a0t7.jpg)
+当`target < A[m]`，还需讨论
+ + 当`target < A[L]`，搜索区间应为`[m + 1, r]`；
+ + 当`target >= A[L]`，搜索区间应为`[L, m - 1]`;
+当`target > A[m]`，搜索区间应为`[m + 1, r]`
+
+#### 方法二：比较`A[L]`与`A[m]`，可以有效简化判断
+仍对于上图两种情况分析，
+1. `m > k` <==> `A[m] < A[L]` <==> `[m, r]`部分是单调的，所以，要么`target`落在区间`[m, r]`，这就成了标准的二分，要么`target`落在区间`[L, m]`；
+2. `m < k` <==> `A[m] > A[L]` <==> `[L, m]`部分是单调的，这样，问题也被分解成了两种子情况。
+
+#### 补充 `TODO`
+需要注意的是**循环条件**和**边界更新**的写法。
 
 ### P38 Count and Say （找第n个数的字符串表示）
 表示规则：对于连续字符串，表示为重复次数+数本身。
@@ -94,19 +126,31 @@ for (int i = 1, ans = i; ...) {...}
 
 时间复杂度：遍历字符串数组，需O(n)，对单个字符串排序O(LlogL)，整体为O(nLlogL)。
 
-### P53 Maximum Subarray 求连续子数组的最大和
+### P53 Maximum Subarray 求连续子数组的最大和（最大子区间和）
 
 #### 方法一：Kadane's algorithm / 贪心
 逐个遍历数组元素并将其加入累加和`sum`，如果累加和大于记录的最大和`maxSum`，则更新`maxSum`。如果`sum`小于等于0，表明之前的子数组不会提高后续数组的累加和，故抛弃之前的子数组，将`sum`重新置为0。这样遍历数组即可得到maxSum。
 
-#### 方法二：分治 / DP
+#### 方法二：DP1（区间和）
 `TODO`
 不是太懂
+
+#### 方法三：
+
+### P54 Spiral Matrix 螺旋遍历矩阵（对偶问题：将自然数以螺旋方式填入方阵）
+一开始想到三种思路：
+1. 构造`N*M`大小的`result`，遍历`result`，计算每个元素应取自哪行哪列
+2. 顺序遍历`matrix`，计算每个元素应落在`result`的哪个位置
+3. 直接按照题意写代码，螺旋方式遍历`matrix`，将取到的元素逐个加入`result`中。想想觉得这种方法代码非常好写。
+
+#### 注意
+1. 异常处理
+2. 采用循环控制语句取`matrix`中元素加入`result`时，控制条件一定要`&& cnt < N * M`，否则可能无法及时退出循环，并得到错误结果。
 
 ### P58 Length of Last Word
 1. 不仅需要考虑`s == null || s.length() == 0`的情况，还要考虑s只包含空格的情况，所以首先要`trim()`去除头尾的空格。
 
-### P125 Valid Palindrome
+### P125 Valid Palindrome 判断回文
 两步走：
 1. 找到最左边和最右边的下一个合法字符（字母或数字）
 2. 一致转换为小写进行比较
@@ -194,131 +238,3 @@ for (int i = 1, ans = i; ...) {...}
 #### 方法三：
 二分查找。在二分查找循环中，统计矩阵中小于等于中间值的数字个数，拿它和k比较来确定第k小的数字在左半部分还是右半部分。
 
-
---------
-
-# LintCode notes
-
-### P31 Array Partitioning
-方法一：自左向右
-用下标`i`遍历数组`nums`，同时用下标`right`保存分界点（>=k的索引）。遍历结束，`right`为所求结果。
-
-方法二：两根指针
-快排partition经典代码
-
-```
-	int left = 0, right = nums.length - 1;
-	while (left <= right) {
-		// 从左向右，直到找到 >=k 的索引为止
-		while (left <= right && nums[left] < k) 
-			++left;
-		// 从右向左，直到找到 <k 的索引为止
-		while (left <= right && nums[right] >= k)
-			--right;
-		// 注意进行越界检查！
-		if (left <= right) {
-			int tmp = nums[left];
-			nums[left] = nums[right];
-			nums[right] = tmp;
-			++left;
-			--right;
-		}
-	}
-	return left;
-```
-
-### P55 Compare Strings
-问字符串A是否包含了字符串B中的所有字符，P158判断变位词的变形题。
-
-先遍历 A 和 B 统计各字符出现的频次，然后比较频次大小即可。万能哈希表。
-
-### P82 Single Number 找单数 （2n+1）
-共2n + 1个数，有且仅有一个数落单，要找出这个数。根据异或运算特性`x ^ x = 0和x ^ 0 = x`，可将给定数组的所有数依次异或，最后保留的即为结果。
-
-### P84 Single Number III 找单数（2n+2）
-LintCode P82 找单数（2n+1）的follow up。
-1. 思路：按P82（2n+1找单数）解法，遍历数组，依次异或，最后可求得`ret = x1 ^ x2`。要想分别求得x1和x2，只需`x1 = ret ^ x2`和`x2 = ret ^ x1`。看起来似乎是死循环，其实利用`ret`对原数组进行分组，即可做到。**分组依据是：**x1与x2不等，所以ret的二进制序列必存在某一位是1，根据这一位是0还是1，可将原数组的剩余`2n`个元素分为两组。至此，问题就转化成了两个`2n+1找单数`。
-2. 求一个数二进制序列最低位的1：`x - (x & (x - 1))`。
-
-时间复杂度：两次遍历，O(n)。
-
-### P92 Backpack 同P125（01背包）
-
-### P110 Minumum Path Sum 矩阵最小路径和（DP）
-1. 定义状态：`F(x, y)`表示从起点(0, 0)到达位置(x, y)的最小路径和
-2. 转移方程：`F(x, y) = grid[x][y] + Min{F(x-1, y), F(x, y-1)}`
-3. 注意初始化起点、首行、首列
-4. 所求结果：`F(m-1, n-1)`
-
-### P114 Unique Paths 矩阵中路径总数
-动态规划矩阵类问题的通用方法：
-1. 状态：`F(x, y)`表示从位置(x, y)到达终点的路径总数
-2. 转移方程：`F(x, y) = F(x+1, y) + F(x, y+1)`
-3. 初始化终点、末尾行、末尾列
-4. 所求结果：`F(0, 0)`
-
-### P115 Unique Paths II 有障碍物的矩阵求路径总数
-WA：虽然注意到了尾行、尾列初始化的问题，但还是漏掉了右下角元素（`grid[m-1][n-1] == 1`时，结果应为0）。
-
-### P125 Backpack II 01背包
-
-
-### P138 Subarray Sum
-求元素和为零的子序列
-
-方法一：两重循环
-
-内层循环应从`int j = i`开始。
-
-方法二：比较子串和(TLE)
-
-使用`int curSum`保存到索引`i`处的累加和，`ArrayList sums`保存不同索引处的和。执行`sums.add(curSum)`之前先检查`curSum`是否为0，再检查`curSum`是否已经存在于`sums`中。**时间复杂度与方法一相同的！**根本原因在于`sums.indexOf(curSum)`操作的时间复杂度为线性。
-
-与这种方法类似的有哈希表实现，哈希表的查找在理想情况下可认为是 O(1)。
-
-方法三：哈希表
-
-与方法二几乎一样，只是吧存储`sums`的数据结构从`ArrayList`换成了`HashMap`，查找更快。
-
-### P158 Two Strings Are Anagrams
-判断两字符串是否变位词。
-
-方法一：hashmap 统计字频
-
-对于`比较字符数量`的问题，常用方法为遍历两个字符串，统计各字符出现频次，看是否相等。有很多简单字符串类面试题都是此题的变形题。Python标准库直接支持`为hashable对象计数`。
-1. 初始化含有256个字符的计数器数组。
-1. 对字符串 s 中的字符，计数增1，字符串 t 中的字符减1，再遍历letterCount数组看有无非0值（若有则不是变位词）。
-
-判断互为变位词
-```
-	final int alphabetNum = 256;
-	int[] letterCnt = new int[alphabetNum];
-	for (int i = 0; i < s.length(); i++) {
-		++letterCnt[s.charAt(i)];
-		--letterCnt[t.charAt(i)];
-	}
-	for (int i = 0; i < alphabetNum; i++) {
-		if (letterCnt[i] != 0)  return false;
-	}
-	return true;
-```
-
-判断字符串A是否字符串B的父集
-```
-	final int alphabetNum = 26;
-	int[] letterCnt = new int[alphabetNum];
-	for (int i = 0; i &lt; A.length(); i++) {
-		++letterCnt[A.charAt(i) - 'A'];
-	}
-	for (int i = 0; i &lt; B.length(); i++) {
-		--letterCnt[B.charAt(i) - 'A'];
-		if (letterCnt[B.charAt(i) - 'A'] < 0)   return false;
-	}
-	return true;
-```
-
-方法二：排序字符串
-对字符串先排序，若排序后的字符串内容相同，则其互为变位词。
-
-Bug
-1. `++letterCnt[s.charAt(i)];`错写成了`++letterCnt[s.charAt(i) - 'a'];`，导致Runtime Error. （因为字符串中可能包含比‘a’小的字符，从而出现负数下标）。
