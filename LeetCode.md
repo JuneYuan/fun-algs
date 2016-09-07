@@ -67,18 +67,48 @@ for (int i = 1, ans = i; ...) {...}
 旋转之后，有两个不确定因素会影响二分法下一步搜索区间的选取：1.`m`与断点`p`的大小关系；2. `target`落在左半边还是右半边。于是可以讨论所有可能情况——
 
 若`target == A[m]`，直接返回`m`，否则
-1. `m > k`，**隐含条件`A[m] < A[L]`**
+1. `m > p`，**隐含条件`A[m] < A[L]`**
 ![](http://ww4.sinaimg.cn/large/6b9392ddgw1f7l8b4xk3xj20b806nt96.jpg)
 当`target < A[m]`，搜索区间应为`[L, m - 1]`；
 当`target > A{m]`，还需讨论，
  + 当`target < A[L]`，搜索区间应为`[m + 1, r]`;
  + 当`target >= A[L]`，搜索区间应为`[L, m - 1]`。
-1. `m < k`，隐含条件**`A[m] > A[L]`**
+1. `m < p`，隐含条件**`A[m] > A[L]`**
 ![](http://ww3.sinaimg.cn/large/6b9392ddgw1f7l8cam3eij20bl07a0t7.jpg)
 当`target < A[m]`，还需讨论
  + 当`target < A[L]`，搜索区间应为`[m + 1, r]`；
  + 当`target >= A[L]`，搜索区间应为`[L, m - 1]`;
-当`target > A[m]`，搜索区间应为`[m + 1, r]`
+当`target > A[m]`，搜索区间应为`[m + 1, r]`。
+
+重新整理上述两种情况，写出二分查找代码，就成了
+```
+	int lb = 0, ub = A.length - 1;
+	while (lb <= ub) {
+		int mid = (lb + ub) / 2;
+		if (A[mid] == target)	return mid;
+		
+		// 目标值小于A[m]
+		if (target < A[mid]) {
+			// 第一个图的情形：m > p, A[m] < A[L]
+			if (A[mid] < A[lb])		ub = mid - 1;
+			// 第二个图的情形：m < p, A[m] > A[L]
+			else {
+				if (target < A[lb])	lb = mid + 1;
+				else				ub = mid - 1;
+			}
+		} 
+		// 目标值大于A[m]
+		else {
+			// 第一个图的情形：m > p, A[m] < A[L]
+			if (A[mid] < A[lb]) {
+				if (target < A[lb])	lb = mid + 1;
+				else				ub = mid - 1;
+			}
+			// 第二个图的情形：m < p, A[m] > A[L]
+			else					lb = mid + 1;
+		}
+	}
+```
 
 #### 方法二：比较`A[L]`与`A[m]`，可以有效简化判断
 仍对于上图两种情况分析，
