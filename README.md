@@ -7,6 +7,8 @@ LeetCode / LintCode 已完成题目列表
 
 | # | Title | Description | Notes | Solution | Difficulty | Data Structure | Algorithms |
 |---| ----- | ----------- | ----- | -------- | ---------- | -------------- | ---------- |
+| 1 | [Two Sum]() | 寻找数组中和为给定值的两个数 | [📒]() | [Java]() | M | HashTable |  |
+| 2 | [Add Two Numbers]() | 链表表示的两数字之和 | [📒]() | [Java]() | M | Linked List | Math |
 | 3 | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters) | 最长不重复子串 |  | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/string/P3.java) | M | String | Two Pointers |
 | 6 | [Zigzag](https://leetcode.com/problems/longest-substring-without-repeating-characters) | 之字形遍历字符串 | [📓](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p6-zigzag) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/string/P6.java) | E | String |  |
 | 7 | [Reverse Integer](https://leetcode.com/problems/longest-substring-without-repeating-characters) | 整数逆置 |  | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/misc/P7.java) | E |  |  |
@@ -29,6 +31,8 @@ LeetCode / LintCode 已完成题目列表
 | 322 | [Coin Change](https://leetcode.com/problems/coin-change) | 换零钱 | [📓](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p322-coin-change-换零钱) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/dp/P322.java) | M |  | DP |
 | 378 | [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix) | 寻找第k小的数 | [📓](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p378-kth-smallest-element-in-a-sorted-matrix) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/datastruct/P378.java) | M | Heap | Binary Search |
 
+| 0 | [title]() | zh | [📒]() | [Java]() | M | DS | algs |
+
 ## LintCode
 
 | # | Title | Description | Notes | Solution | Difficulty | Data Structure | Algorithms |
@@ -45,3 +49,22 @@ LeetCode / LintCode 已完成题目列表
 | 125 | [Backpack II](http://www.lintcode.com/problem/backpack-ii) | 01背包 | [📓](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LintCode.md#p125-backpack-ii-01背包) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/lintcode/dp/P125.java) | M |  | DP |
 | 138 | [Subarray Sum](http://www.lintcode.com/problem/subarray-sum) | 求元素和为零的子序列 | [📓](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LintCode.md#p138-zero-sum-subarray-求元素和为零的子序列) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/lintcode/array/P138.java) | E | Array |  |
 | 158 | [Two Strings Are Anagrams](http://www.lintcode.com/en/problem/two-strings-are-anagrams/) | 判断两字符串是否变位词 | [📓](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LintCode.md#p158-two-strings-are-anagrams) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/lintcode/string/P158.java) | E | String |  |
+
+| 0 | [title]() | zh | [📒]() | [Java]() | M | DS | algs |
+
+## Basis
+基础数据结构与算法笔记
+
+| Category | Title | Implementation | Notes |
+| -------- | ----- | -------------- | ----- |
+| Basic Algorithm | Binary Search | [Java]() | [📒]() |
+
+| cat | title | [Java]() | [📒]() |
+
+## 2017校招笔试面试题目整理
+
+| Problem&Notes | Corp. | Solution | Data Structure | Algorithms |
+| ------------- | ----- | -------- | -------------- | ---------- |
+| [经纬度编码（标准二分查找）]() | 腾讯 | [Java]() |  | Binary Search |
+
+| [desc]() | Corp | [Java]() | DS | Algs |
