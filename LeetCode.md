@@ -1,5 +1,11 @@
 # LeetCode Notes
 
+### P1 Two Sum 寻找数组中和为给定值的两个数 `TODO: 方法二思路还没写`
+方法一：双重for循环，枚举所有`C N 2`种组合。简单粗暴，但超时。
+
+方法二：HashMap
+这种方法可写成简单的两次循环（一次遍历建好map，一次遍历查找“补数”是否存在）；也可优化到一次遍历。
+
 ### P2 Add Two Numbers 模拟链表加法
 
 ### P3 Longest Substring Without Repeating Characters 最长不重复子串
@@ -67,6 +73,7 @@ for (int i = 1, ans = i; ...) {...}
 旋转之后，有两个不确定因素会影响二分法下一步搜索区间的选取：1.`m`与断点`p`的大小关系；2. `target`落在左半边还是右半边。于是可以讨论所有可能情况——
 
 若`target == A[m]`，直接返回`m`，否则
+
 1. `m > p`，**隐含条件`A[m] < A[L]`**
 ![](http://ww4.sinaimg.cn/large/6b9392ddgw1f7l8b4xk3xj20b806nt96.jpg)
 当`target < A[m]`，搜索区间应为`[L, m - 1]`；
