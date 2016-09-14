@@ -2,6 +2,22 @@
 
 基础数据结构和算法笔记。
 
+### Quick Sort
+写法一：使用一根指针(或称下标)完成分区
+思路：
+对于待排序区间`[L, R]`，取基准元素`pivot = A[L]`，使用下标`m`记录遍历到数组第i个元素时，当前partition的索引，那么对数组完成一次遍历时，`m`就正好位于`pivot`应当放在的位置，分区结束。对`[L, m - 1]`和`[m + 1, R]`两个子分区递归处理。**递归终止条件：L >= R，即左右边界相等或错位。**
+
+> 比较`A[i]`和`pivot`时只能使用`<`而不能用`<=`，因为只有取`<`才能进入收敛条件，`<=`则可能出现死循环，因为在`=`时第一个元素可能保持不变进而产生死循环。
+
+参考图示：
+![](http://algorithm.yuanbin.me/shared-files/images/qsort2.png)
+
+写法二：使用两根指针完成分区
+`TODO` 书上的解释说数组元素均相等时，partition恰好得中间位置，分析不对
+
+参考图示：
+![](http://algs4.cs.princeton.edu/23quicksort/images/partitioning.png)
+
 ### Binary Search
 模版一：lower/upper bound
 
