@@ -1,11 +1,9 @@
 package interview;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /* 经纬度编码（标准二分）
- * 输入：带编码的纬度值，比如80
+ * 输入：待编码的纬度值，比如80
  * 输出：[-90, 90]之间二分搜索输入的纬度值，搜索过程中的生成编码序列，，精度6位。
  * 编码规则为，二分取左边，对应编码0；取右边，对应编码1。80对应的编码就是 111100
  */
