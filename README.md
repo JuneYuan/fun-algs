@@ -1,9 +1,13 @@
-LeetCode / LintCode 已完成题目列表
-========
+1. LeetCode, LintCode已完成题目
+2. 基础数据结构与算法笔记
+3. 2017校招笔试面试题目
+
+As follows.
 
 ---
+## PART I. LeetCode / LintCode 已完成题目列表
 
-## LeetCode
+LeetCode
 
 | # | Title | Description | Notes | Solution | Difficulty | Data Structure | Algorithms |
 |---| ----- | ----------- | ----- | -------- | ---------- | -------------- | ---------- |
@@ -34,7 +38,8 @@ LeetCode / LintCode 已完成题目列表
 
 | # | [title]() | zh | [📒]() | [Java]() | M | DS | algs |
 
-## LintCode
+
+LintCode
 
 | # | Title | Description | Notes | Solution | Difficulty | Data Structure | Algorithms |
 |---| ----- | ----------- | ----- | -------- | ---------- | -------------- | ---------- |
@@ -53,8 +58,8 @@ LeetCode / LintCode 已完成题目列表
 
 | # | [title]() | zh | [📒]() | [Java]() | M | DS | algs |
 
-## Basis
-基础数据结构与算法笔记
+---
+## PART II. Basis（基础数据结构与算法笔记）
 
 | Category | Title | Implementation | Notes |
 | -------- | ----- | -------------- | ----- |
@@ -63,7 +68,8 @@ LeetCode / LintCode 已完成题目列表
 
 | Basic * | title | [Java]() | [📒]() |
 
-## 2017校招笔试面试题目整理
+---
+## PART III. 2017校招笔试面试题目整理
 
 | Problem&Notes | Corp. | Solution | Data Structure | Algorithms |
 | ------------- | ----- | -------- | -------------- | ---------- |
