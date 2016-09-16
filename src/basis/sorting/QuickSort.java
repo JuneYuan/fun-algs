@@ -2,26 +2,31 @@ package basis.sorting;
 
 public class QuickSort {
 
-	public static void quickSort_inplace_twoIndex(int[] A, int L, int R) {
+	public static void quickSort_inplace(int[] A, int L, int R) {
 		for (int item : A) {
 			System.out.println(item + " ");
 		}
 		System.out.println();
 		
+		// 递归终止条件
 		if (L >= R)	return;
 		
-		int m = partition(A, L, R);
-
-		// swap the smaller(j) with pivot
-		int temp = A[m];
-		A[m] = A[L];
-		A[L] = temp;
+		// 分区
+		int m = partition1(A, L, R);
+		// int m = partition2(A, L, R);
 		
-		quickSort_inplace_twoIndex(A, L, m - 1);
-		quickSort_inplace_twoIndex(A, m + 1, R);
+		// 分治
+		quickSort_inplace(A, L, m - 1);
+		quickSort_inplace(A, m + 1, R);
 	}
 	
-	private static int partition(int[] A, int L, int R) {	
+	/* 首尾指针
+	 * L, R: 待分区部分的左、右边界
+	 * pivot: 基准元素，这里设为A[L]
+	 * i: 从左向右扫描，遇到 !< pivot的元素时暂停，准备与某<pivot的元素交换
+	 * j: 从右向左扫描，遇到 !>= pivot的元素时暂停，准备与某 >= pivot的元素交换
+	 */
+	private static int partition2(int[] A, int L, int R) {	
 		int pivot = A[L];
 		int i = L + 1, j = R;
 		while (i <= j) {
@@ -34,49 +39,45 @@ public class QuickSort {
 			if (i > j)	break;
 			
 			// swap A[left] with A[right] while left <= right
-			int temp = A[i];
-			A[i] = A[j];
-			A[j] = temp;
+			swap(A, i, j);
 		}
+		
+		// swap the smaller(j) with pivot
+		swap(A, j, L);
 		
 		return j;
 	}
 
-	/* L, R: 待排序部分的左、右边界
+	/* 快慢指针
+	 * L, R: 待分区部分的左、右边界
 	 * pivot: 基准元素，这里设为A[L]
-	 * 下标m: 遍历到数组第i个元素时，当前partition的索引
+	 * i: 遍历到数组第i个元素
+	 * m: 遍历到数组第i个元素时，当前partition的索引，作用相当于一个计数器
 	 */
-	public static void quickSort_inplace_oneIndex(int[] A, int L, int R) {
-		for (int item : A) {
-			System.out.print(item + " ");
-		}
-		System.out.println();
-		
-		// 递归终止条件
-		if (L >= R)	return;
-
+	private static int partition1(int[] A, int L, int R) {
 		int pivot = A[L];
-		int m = L;
-		for (int i = L + 1; i <= R; i++) {
-			if (A[i] < pivot) {	// 这里只能用"<"
-				m += 1;
-				int temp = A[m];
-				A[m] = A[i];
-				A[i] = temp;
+		int m = L, i = L + 1;
+		for (; i <= R; i++) {
+			if (A[i] < pivot) {
+				m++;
+				swap(A, m, i);	// 遍历过程中把比pivot小的元素不断前移
 			}
 		}
-		// swap between A[m] and A[L]
-		int temp = A[m];
-		A[m] = A[L];
-		A[L] = temp;
 		
-		quickSort_inplace_oneIndex(A, L, m - 1);
-		quickSort_inplace_oneIndex(A, m + 1, R);
+		swap(A, L, m);	// 把pivot放到合适位置
+		
+		return m;
+	}
+	
+	private static void swap(int[] A, int a, int b) {
+		int temp = A[a];
+		A[a] = A[b];
+		A[b] = temp;
 	}
 	
 	public static void main(String[] args) {
 		int unsortedArray[] = new int[]{6, 5, 3, 1, 8, 7, 2, 4};
-		quickSort_inplace_oneIndex(unsortedArray, 0, 7);
+		quickSort_inplace(unsortedArray, 0, 7);
 		System.out.println("After sort:");
 		for (int item : unsortedArray) {
 			System.out.print(item + " ");
