@@ -7,12 +7,13 @@ import java.util.List;
 import org.junit.Test;
 
 public class P78 {
-	
+	// 迭代写法
 	public List<List<Integer>> subsets_iterative(int[] nums) {
 		List<List<Integer>> result = new ArrayList<>();
 		if (nums == null || nums.length == 0)	return result;
 		
 		Arrays.sort(nums);
+		// 每个子集都对应[0, 2^len]中的唯一“编码”
 		int cnt = (int) Math.pow(2, nums.length);
 		for (int i = 0; i < cnt; i++) {
 			List<Integer> temp = new ArrayList<>();
@@ -42,7 +43,9 @@ public class P78 {
 		return result;
 	}
 	
-	// 自己写的递归函数
+	/* 自己写的递归函数
+	 * 对于nums[]的每个数，枚举选和不选，一直枚举到最后，就得到一个子集。
+	 */
 	private void dfs_mine(int[] nums, int idx, List<Integer> curr, List<List<Integer>> result) {
 		if (idx == nums.length)	{
 			result.add(new ArrayList<>(curr));
@@ -58,7 +61,10 @@ public class P78 {
 		curr.remove(curr.size() - 1);
 	}
 
-	// Gitbook的递归函数
+	/* Gitbook的递归函数
+	 * 不一定要枚举完每一个数，枚举了前i位，且选了第i位时，就把它加入最后的答案。
+	 * 这是正确的，因为，子集的子集一定也是最终集合的子集。
+	 */
 	private void dfs_book(int[] nums, int pos, List<Integer> list, List<List<Integer>> result) {
 		// add temp result first
 		result.add(new ArrayList<>(list));
