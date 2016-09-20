@@ -148,6 +148,10 @@ for (int i = 1, ans = i; ...) {...}
 #### 方法一：按定义，递归地求
 类比成N个球要放进N个空箱子的不同放法。
 
+说明
+
+为什么单独处理nums.length == 1的情况？——因为这种情况若不单独处理，则进入for循环后`numsNew`是空数组`[]`，`resTemp = permute(numsNew)`随之也是空数组`[]`，导致无法进入循环体中的`ret.add(temp)`，最后返回的ret为[]，答案错误。
+
 #### 方法二：类似Subsets求子集问题的做法
 只取元素个数等于父集的那些结果
 
@@ -270,6 +274,36 @@ for (int i = 1, ans = i; ...) {...}
 可以推广到`K*N + L`问题。定义数组`x[]`，长度为`K`。遍历整个数组，对于读到的每一个值`a`而言，`x[i]`的含义如下：它的每一个二进制位，表示目前为止该二进制位值为1的数有`i`个。得状态转化关系：`x[j] = (x[j - 1] & a) | (x[j] & ~a)`。
 > "The first part indicates the carries from previous one. The second part indicates the bits not carried to next one."
 
+### P190 Reverse Bits
+/\* 无符号数映射成有符号数，相当于从 Domain `[0, 2^32 - 1]` ~ Range `[-2^31, 2^31 - 1]`. \*/
+
+步骤分解为：输入`n` -> `n`的二进制原码 -> `n`二进制原码的逆序 -> 输出按补码解读出来的int值
+
+1. 前两步：`n` -> `n`的二进制原码
+循环取出`n`的二进制表示的最低到最高位即可
+```
+        for (int i = 0; i < 32; i++) {
+            char bit = ((n >> i) & 1) == 0 ? '0' : '1';
+            tcBits.append(bit);
+        }
+```
+2. 第三步，`按补码解读一个二进制序列`
+若符号位为0，直接调用`Long.parseLong()`即可，这里因为`n`的取值可能超出`int`表示范围，所以使用`long`; 若符号位为1，则`取反码再加一`可得到所求结果的绝对值，乘以`-1`返回，即可。
+```
+        if (tcBits.charAt(0) == '0') {
+        	result = Long.parseLong(tcBits.toString(), 2);
+        } else {
+        	StringBuilder smBits = new StringBuilder();  // 原码
+        	
+            for (int i = 0; i < 32; i++) {
+                char bit = tcBits.charAt(i) == '0' ? '1' : '0';
+                smBits.append(bit);
+            }
+            
+            result = Long.parseLong(smBits.toString(), 2) + 1;
+            result *= (-1);
+        }
+```
 
 ### P217 Contains Duplicate 数组元素查重
 利用HashTable查找的O(1)特性。遍历数组元素，每次插入集合，若不成功，则return true；全部插入成功，返回false。
