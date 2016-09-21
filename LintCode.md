@@ -29,7 +29,7 @@
 ```
 
 ### P40 Implement Queue by Two Stacks
-两个栈模拟队列，`LIFO + LIFO ==> FIFO`。将元素先 push到一个栈，再push 到另一个栈，效果等价于`Queue`.
+两个栈模拟队列。`LIFO + LIFO ==> FIFO`。将元素先 push到一个栈，再push 到另一个栈，效果等价于`Queue`.
 
 ### P55 Compare Strings
 问字符串A是否包含了字符串B中的所有字符，P158判断变位词的变形题。

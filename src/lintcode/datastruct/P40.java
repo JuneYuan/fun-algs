@@ -2,6 +2,7 @@ package lintcode.datastruct;
 
 import java.util.Stack;
 
+// 双栈实现队列
 public class P40 {
 	private Stack<Integer> stack1;
 	private Stack<Integer> stack2;
