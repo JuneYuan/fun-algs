@@ -1,10 +1,10 @@
-package interview;
+package exam;
 
 import java.util.*;
 
 import org.junit.Test;
 
-public class YuanFuDao1 {
+public class YuanFuDao1_minDeltaSum {
 	
 	synchronized public int minDelta(int[] A) {
 		int result = Integer.MAX_VALUE;
