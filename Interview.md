@@ -103,6 +103,14 @@ Google经典面试题，题解能看懂，但感觉对问题的把握还不够�
 ### 链家笔试 Sep 
 
 
+### 滴滴校招笔试 Sep 23, Fri
+1. 十进制数M转换为N进制数
+**注意考虑输入为负数**
+2. 求数组中和为target的所有可能元素组合数，只输出得数，不需要输出具体是哪些元素
+ LeetCode P39, 40 Combination Sum
+ 这道题超时，好像应该采用迭代解法 `TODO`
+ 
+
 ### 小米笔试 Sep 23, Fri 
 1. 求一棵树的高度。输入：总的节点数N，和每一对父子关系。输出：树高。
 解法：递归地求，`depth(root) = 1 + Math.max(depth(root.chL), depth(root.chR))`.
