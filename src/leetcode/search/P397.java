@@ -8,47 +8,6 @@ import java.util.Set;
 import org.junit.Test;
 
 public class P397 {
-
-    // 不带参数的DFS
-    public int integerReplacement_DFS2(int N) {
-    	if (N == 1)  return 0;
-    	
-    	if ((N & 1) == 0) {
-    		return integerReplacement_DFS2(N / 2) + 1;
-    	} else {
-    		int len1 = integerReplacement_DFS2(N - 1) + 1;
-    		/* (N >> 1) + 1 等价于 (N + 1) / 2
-    		 * 因为转换过程是：(N+1)/2 -> (N+1) -> N，所以len2采用如下方式计算
-    		 * 这是为了避免当N等于MAX_INT时，(N + 1)溢出
-    		 */
-    		int len2 = integerReplacement_DFS2((N >> 1) + 1) + 2;
-    		return Math.min(len1, len2);
-    	}
-    }
-    
-    // 带参数的DFS
-    public int integerReplacement_DFS1(int N) {
-    	if (N == Integer.MAX_VALUE) {
-    		int a = N - 1;
-    		int b = N >> 1 + 1;
-			return Math.min(dfs(a, 1), dfs(b, 2));    		
-    	}
-    	
-    	return dfs(N, 0);
-    }
-    
-    private int dfs(int N, int depth) {
-    	if (N == 1)	return depth;
-    	
-    	if ((N & 1) == 0) {
-    		return dfs(N >> 1, depth + 1);
-    	} else {
-    		int len1 = dfs(N - 1, depth + 1);
-    		int len2 = dfs(N + 1, depth + 1);
-    		return Math.min(len1, len2);
-    	}
-    }
-       
     // BFS解法
     public int integerReplacement_BFS(int N) {
 		if (N == 1)	return 0;
@@ -61,8 +20,8 @@ public class P397 {
 		
 		return bfs(N);
 	}
-    
-	private int bfs(int N) {
+	
+    private int bfs(int N) {
 		int result = 0;
 		Queue<Integer> queue = new LinkedList<>();
 		queue.offer(N);
@@ -90,7 +49,47 @@ public class P397 {
 		return -1;
 	}
 
-	/* DP解法（逆向）
+    // DP_递归_不带自定义参数
+    public int integerReplacement_DFS2(int N) {
+    	if (N == 1)  return 0;
+    	
+    	if ((N & 1) == 0) {
+    		return integerReplacement_DFS2(N / 2) + 1;
+    	} else {
+    		int len1 = integerReplacement_DFS2(N - 1) + 1;
+    		/* (N >> 1) + 1 等价于 (N + 1) / 2
+    		 * 因为转换过程是：(N+1)/2 -> (N+1) -> N，所以len2采用如下方式计算
+    		 * 这是为了避免当N等于MAX_INT时，(N + 1)溢出
+    		 */
+    		int len2 = integerReplacement_DFS2((N >> 1) + 1) + 2;
+    		return Math.min(len1, len2);
+    	}
+    }
+    
+    // DP_递归_带有自定义参数
+    public int integerReplacement_DFS1(int N) {
+    	if (N == Integer.MAX_VALUE) {
+    		int a = N - 1;
+    		int b = N >> 1 + 1;
+			return Math.min(dfs(a, 1), dfs(b, 2));    		
+    	}
+    	
+    	return dfs(N, 0);
+    }
+    
+    private int dfs(int N, int depth) {
+    	if (N == 1)	return depth;
+    	
+    	if ((N & 1) == 0) {
+    		return dfs(N >> 1, depth + 1);
+    	} else {
+    		int len1 = dfs(N - 1, depth + 1);
+    		int len2 = dfs(N + 1, depth + 1);
+    		return Math.min(len1, len2);
+    	}
+    }
+
+	/* DP_迭代_逆向
 	 * 定义状态dp(i): 表示正整数i变换到1需要的最少步数
 	 * 转化方程：dp(可能通过一步变换得到i的那些值) = dp(i) + 1，具体跟i的奇偶性有关
 	 * 举例：dp(14) = dp(7) + 1; dp(15, 17, 32) = dp(16) + 1
@@ -126,7 +125,7 @@ public class P397 {
 		return dp[N];
 	}    
     
-    /* DP解法（正向）
+    /* DP_迭代_正向
 	 * 定义状态dp(i): 表示正整数i变换到1需要的最少步数
 	 * 转化方程：dp(i) = min{dp(i下一步可能变换到的值)} + 1，具体跟i的奇偶性有关
 	 * 举例：dp(20) = dp(10) + 1; dp(15) = min{dp(14), dp(16)} + 1
