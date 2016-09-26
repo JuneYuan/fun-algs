@@ -225,7 +225,27 @@ for (int i = 1, ans = i; ...) {...}
 
 ![](http://ww3.sinaimg.cn/mw690/6b9392ddgw1f7xtyx77mqj218g0xcn1y.jpg)
 
-### P108 Converted Sorted Array To Binary Search Tree
+### P82 Remove Duplicates from Sorted List II
+1. P83保留重复值节点的一个，与这道题删除全部重复节点，区别在于不能确定链表头是否删除。若采用一般方式，需要较多的`if`条件语句；更好的方法是，**引入dummy node来处理链表头节点不确定的问题**。
+```
+ListNode dummy = new ListNode(0);
+dummy.next = head;
+```
+考虑链表`A->B->C`，删除B时，需要处理`A`和`C`，将`A`的`next`指向`C`，所以删除节点的操作需要涉及三个链表节点。且不能删除当前节点，只能改变当前节点的`next`指向的节点。
+1. 源码分析
+`curr`迭代访问整个链表，若下一节点值存在重复，就逐个删掉所有重复元素，删除过程，借助`runner`指针来完成；否则继续遍历。
+
+
+### P83 Remove Duplicates from Sorted List
+使用两个指针：`curr`迭代访问整个链表，`runner`用于检查后续节点是否与`curr`重复了。
+
+**复杂度分析**
+
+遍历链表一次，时间复杂度为O(n)，使用中间变量进行遍历，空间复杂度为O(1).
+
+### P108 Converted Sorted Array To Binary Search Tree 从有序数列构造平衡二叉树
+思路：折半取中
+
 中序遍历`二叉搜索树`可得到升序`nums[]`，这道题是反过来，由升序`nums[]`逆推出来`二叉搜索树`。题目还要求是一颗`平衡二叉搜索树`，那么只要将`nums[]`不断均分为左右两半部分即可。
 
 处理过程可采用递归。
