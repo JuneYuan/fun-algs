@@ -243,6 +243,11 @@ dummy.next = head;
 
 遍历链表一次，时间复杂度为O(n)，使用中间变量进行遍历，空间复杂度为O(1).
 
+### P86 Partition List
+1. 起初想着参照快排的“快慢指针”写法，结果WA，因为题目说"You should preserve the original relative order of the nodes in each of the two partitions", 而那样写会打破顺序。
+2. 直接创建两个链表，一个存放小于`x`的元素，一个存放大于等于`x`的元素。迭代访问整个链表，将元素插入`left`或`right`链表，遍历完成后，合并两个链表并返回。《CC150》还提供了头插法维护两个链表的版本，但是不适用于这道题目的要求。
+3. 使用`dummy`避免头节点处理的麻烦，是很可取的。
+
 ### P108 Converted Sorted Array To Binary Search Tree 从有序数列构造平衡二叉树
 思路：折半取中
 
@@ -334,6 +339,10 @@ dummy.next = head;
 
 ### P223 Rectangle Area 求两矩形覆盖的面积
 计算两个矩形的总面积然后减去重叠的部分就得到了总面积，关键在于重叠部分面积的计算。
+
+### P237 Delete Node in a Linked List
+1. Foolish approach: Repeatedly copy data of `next Node` to current Node, and delete `next Node` only when it is `the last Node`.
+2. Wiser approach: Copy data of `next Node` to current Node, and delete `next Node` directly (once is enough).
 
 ### P322 Coin Change 换零钱
 典型动态规划题目。
