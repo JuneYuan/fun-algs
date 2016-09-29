@@ -1,6 +1,6 @@
 1. LeetCode, LintCode已完成题目
-2. 基础数据结构与算法笔记
-3. 2017校招笔试面试题目
+2. 2017校招笔试面试题目
+3. 基础数据结构与算法笔记
 
 As follows.
 
@@ -58,22 +58,76 @@ LintCode
 
 | # | [title]() | zh | [📒]() | [Java]() | M | DS | algs |
 
+
 ---
-## PART II. Basis（基础数据结构与算法笔记）
+## PART II. 2017校招笔试面试题目整理
+
+| Problem | Corp. | Solution | Notes | Data Structure | Algorithms |
+| ------------- | ----- | -------- | ----- | -------------- | ---------- |
+| 判断连续数 | 58集团 | []() | []() | Array |  |
+| 幸运数1 | 京东 | []() | []() |  | Math |
+| 采购单 | 京东 | []() | []() | Array |  |
+| 幸运数2 | 京东 | []() | []() |  | Math |
+| 爬山 | 京东 | []() | []() | Array |  |
+| 最大子区间和 | 滴滴 | []() | []() | Array | Greedy, DP |
+| 餐桌分配 | 滴滴 | []() | []() | Array, Heap |  |
+| 数组分为两堆后和相差的最小值 | 猿辅导 | ['TO UPDATE']() | []() | Array | DP |
+| 数组分为两堆后平均值相差的最大值 | 猿辅导 | []() | []() | Array | Math |
+| 子矩阵的中位数 | 猿辅导 | []() | []() | Array | Heap |
+| 最强大脑 | 奇虎360 | [`TO UPDATE`]() | []() | String |  |
+| 内存分配 | 奇虎360 | []() | []() |  |  |
+| 一圈红包 | 美团 | []() | []() | Array | DP |
+| 多叉书的层次遍历 | 美团 | []() | []() | Tree | BFS |
+| 经纬度编码（标准二分查找） | 腾讯 | []() |  |  | Binary Search |
+| 高楼扔鸡蛋问题| 腾讯 | []() |  |  | DP |
+| 经纬度编码（标准二分查找） | 腾讯 | []() |  |  | Binary Search |
+| 编程实现生产者消费者模型 | 美图 | []() | []() | Stack |  |
+| 求一个数组任意两元素之和的最大值 | 美图 | []() | []() | Array |  |
+| 输出二叉树每层最后一个节点 | 京东 | []() | []() | DS | Algs |
+| 求组合数C(n, m) | 京东 | ['TODO']() | []() |  |  |
+| 整数n变到1的最少步骤 | 创新工场 | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/exam/ChuangXin_nToOne.java) | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/Interview.md#创新工场涂鸦-sep-13-tue) | Array | BFS, DP |
+| 求第n个素数 | 链家 | ['TO UPDATE']() | []() |  | Math |
+| 求某规律字符串数组的第k项 | 链家 | ['TO UPDATE']() | []() |  | Misc |
+| Full Sets on Fabric | 链家 | []() | []() |  |  |
+| Big Home | 百度 | ['TO UPDATE']() | []() | Array | Union Find |
+| 树上摘苹果 | 百度 | []() | []() | Tree | DP |
+| 括号匹配 | 百度 | []() | []() | Stack |  |
+| 保留最大的数 | 搜狐 | []() | []() |  | Math |
+| 袋鼠过河 | 搜狐 | []() | []() | Array | DP |
+| 彩色宝石项链 | 搜狐 | [`TODO`]() | []() | String |  |
+| 统计二进制中1的个数 | 一点资讯 | [`TO UPDATE`]() | []() |  | Bits |
+| “矩阵方格加权最短路径和” | 一点资讯 | []() | []() | Graph | MST?, DP? |
+| 最长拼接字符串 | Hulu | [`TO UPDATE`]() | []() | String |  |
+| 合法的命令与参数组合 | Hulu | []() | []() |  | ? |
+| 爱探索的葫芦娃 | Hulu | [`TO UPDATE`]() | [`TO UPDATE`]() | UF |  |
+| 数串拼接成的最大数值 | 猪八戒 | [`TODO`]() | [`TO UPDATE`]() | Array |  |
+| 进制转换 | 滴滴 | [`TO UPDATE`]() | []() |  | Math |
+| Combination Sum | 滴滴 | [`TODO`]() | []() | Array | DFS, ? |
+| [求树的高度](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/Interview.md#小米笔试-sep-23-fri) | 小米 | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/exam/Xiaomi1_treeHeight.java) |  | Tree | Backtracking |
+| [手机号码替身](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/Interview.md#小米笔试-sep-23-fri) | 小米 | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/exam/Xiaomi2_.java) | []() |  | Misc |
+| [倒序输出一个句子中的单词](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/Interview.md#小米笔试-sep-23-fri) | 小米 | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/exam/Xiaomi3_reverseSentence.java) |  | String |  |
+| [导弹防御系统](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/Interview.md#小米笔试-sep-23-fri) | 小米 | []() | [`TODO`]() | Array | ? |
+| 二叉树中序遍历非递归 | 一点资讯 | []() | []() | Tree, Stack | DFS |
+| 建堆及其查找的复杂度 | 一点资讯 | []() | []() | Heap |  |
+| LRU算法实现 | 滴滴 | []() | []() | LinkedHashMap |  |
+| BST非递归插入 | 滴滴 | []() | []() | BST | Algs |
+| 玩家使用经验丹升级 | 完美世界 | []() | []() |  |  |
+| 进程协作打印字符 | 完美世界 | []() | []() |  |  |
+| String Shifting | 头条 | []() | []() | String | KMP |
+| 字典序数字 | 头条 | []() | []() | Array | Misc |
+| 新最大子区间和 | 一点资讯 | ['TO UPDATE']() | []() | Array |  |
+| 丧尸攻击 | 一点资讯 | [`TO UPDATE`]() | []() | Array |  |
+
+| desc | Corp | [Java]() | []() | DS | Algs |
+
+
+---
+## PART III. Basis（基础数据结构与算法笔记）
 
 | Category | Title | Implementation | Notes |
 | -------- | ----- | -------------- | ----- |
+| Basic Data Structure | Heap | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/basis/datastruct/MaxHeap.java) | [`TODO`]() |
 | Basic Sorting | Quick Sort | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/basis/sorting/QuickSort.java) | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/basis.md#quick-sort) |
 | Basic Algorithm | Binary Search | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/basis/algorithm/BinarySearch.java) | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/basis.md#binary-search) |
 
-| Basic * | title | [Java]() | [📒]() |
-
----
-## PART III. 2017校招笔试面试题目整理
-
-| Problem&Notes | Corp. | Solution | Data Structure | Algorithms |
-| ------------- | ----- | -------- | -------------- | ---------- |
-| [经纬度编码（标准二分查找）]() | 腾讯 | [Java]() |  | Binary Search |
-| [整数n变到1]() | 创新工场 | [Java]() | Tree | DFS, BFS, DP |
-
-| [desc]() | Corp | [Java]() | DS | Algs |
+|  | title | [Java]() | [📒]() |
