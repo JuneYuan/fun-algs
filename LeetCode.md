@@ -8,7 +8,24 @@
 转化方式：`A[i] + A[j] = target` <==> `A[i] = target - A[j]`
 这种方法可写成简单的两次循环（一次遍历建好map，一次遍历查找“补数”是否存在）；也可优化到只进行一次遍历。
 
-### P2 Add Two Numbers 模拟链表加法
+### P2 Add Two Numbers 模拟整数加法
+处理循环条件、更新节点数据以及进位`acc`，比较容易出错。
+
+还有一些代码写得太冗余——
+```
+            ListNode tmp = new ListNode(0);
+            tmp.val = add % 10;
+            sum.next = tmp;
+```
+
+=> `p.next = new ListNode(add % 10)`就可以了。。。
+
+还有
+```
+acc = (add >= 10) ? 1 : 0
+```
+=> 不就是`acc = add / 10`么。。。
+
 
 ### P3 Longest Substring Without Repeating Characters 最长不重复子串
 
@@ -332,6 +349,34 @@ dummy.next = head;
             result = Long.parseLong(smBits.toString(), 2) + 1;
             result *= (-1);
         }
+```
+
+### P206 Reverse Linked List
+题目建议完成迭代和递归两种实现。
+
+#### 迭代实现
+头插法实现单链表就地逆置。循环进行头插的核心代码如下：
+```
+        while (head != null) {
+            ListNode next = head.next;  // 保存head下一节点，用于更新循环变量
+            head.next = dummy;          // 这句和下句就是头插
+            dummy = head;
+            
+            head = next;                // 更新循环变量
+        }
+```
+
+#### 递归实现
+1. 退出条件
+ + 原链表为空，直接返回`null`
+ + 原链表只有一个元素，返回该元素
+2. 递推关系
+`reverseList(head) = reverseList(head.next) ⨁ head`, 其中作为函数参数出现的`head`和`head.next`都表示链表，最后一个`head`表示节点，`⨁`表示link.
+
+这个完成之后，`head`成了最后一个节点，但`head.next`还保留着原来的数据，所以需要“善后”：
+```
+head.next.next = head;  // 相当于⨁的作用
+head.next = null
 ```
 
 ### P217 Contains Duplicate 数组元素查重
