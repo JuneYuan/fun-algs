@@ -95,12 +95,14 @@ for (int i = 1, ans = i; ...) {...}
 
 1. `m > p`，**隐含条件`A[m] < A[L]`**
 ![](http://ww4.sinaimg.cn/large/6b9392ddgw1f7l8b4xk3xj20b806nt96.jpg)
+
 当`target < A[m]`，搜索区间应为`[L, m - 1]`；
 当`target > A{m]`，还需讨论，
  + 当`target < A[L]`，搜索区间应为`[m + 1, r]`;
  + 当`target >= A[L]`，搜索区间应为`[L, m - 1]`。
 1. `m < p`，隐含条件**`A[m] > A[L]`**
 ![](http://ww3.sinaimg.cn/large/6b9392ddgw1f7l8cam3eij20bl07a0t7.jpg)
+
 当`target < A[m]`，还需讨论
  + 当`target < A[L]`，搜索区间应为`[m + 1, r]`；
  + 当`target >= A[L]`，搜索区间应为`[L, m - 1]`;
@@ -272,6 +274,9 @@ dummy.next = head;
 
 处理过程可采用递归。
 
+### P110 Balanced Binary Tree
+递归函数`height(TreeNode )`，或`height(TreeNode , int )`边界条件要仔细斟酌。
+
 ### P125 Valid Palindrome 判断回文
 两步走：
 1. 找到最左边和最右边的下一个合法字符（字母或数字）
@@ -306,6 +311,11 @@ dummy.next = head;
 			i++;
 		}
 ```
+
+### P128 Longest Consecutive Sequence 最大连续子数组
+首先想到排序 + 动态规划来做，但是题目要求时间复杂度为O(n)，排序无法满足。接下来考虑空间换时间，哈希表。题目要求返回数值上形成的最长连续序列长度，不关心位置是否连续，也很符合哈希表的用法。
+
+由于给定一个数，其相邻数要么比它小1，要么大1，那么只需要往左往右搜索直到在数组中找不到数为止。结合哈希表查找为O(1)的特性即可满足要求。
 
 ### P137 Single Number II 找单数（3n+1）
 #### 解法一：逐位处理
@@ -351,6 +361,14 @@ dummy.next = head;
         }
 ```
 
+### P141 Linked List Cycle
+快慢指针检测链表是否有环：fastRunner一次移动两步，slowRunner一次移动一步，好比两辆赛车绕着同一赛道以不同速度前进，最总必然会相遇。
+
+fastRunner会不会刚好“越过” slowRunner，而没有相遇呢？——不会。反证：假设fastRunner越过了slowRunner，当前slowRunner处于位置`i`，fastRunner处于位置`i + 1`，那么考虑前一步，slowRunner已经处于`i - 1`，fastRunner呢，也是处于`i - 1`，就是说，两者已经相遇了。
+
+### P142 Linked List Cycle II
+由检测链表是否存在环的问题演变而来，结论比较简单，推理过程略麻烦，详见《CC150》 P126.
+
 ### P206 Reverse Linked List
 题目建议完成迭代和递归两种实现。
 
@@ -376,7 +394,7 @@ dummy.next = head;
 这个完成之后，`head`成了最后一个节点，但`head.next`还保留着原来的数据，所以需要“善后”：
 ```
 head.next.next = head;  // 相当于⨁的作用
-head.next = null
+head.next = null;  // 断开head与原链表后续节点之间的link（尾部插入节点）。
 ```
 
 ### P217 Contains Duplicate 数组元素查重
