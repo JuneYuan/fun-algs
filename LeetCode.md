@@ -342,6 +342,14 @@ dummy.next = head;
 可以推广到`K*N + L`问题。定义数组`x[]`，长度为`K`。遍历整个数组，对于读到的每一个值`a`而言，`x[i]`的含义如下：它的每一个二进制位，表示目前为止该二进制位值为1的数有`i`个。得状态转化关系：`x[j] = (x[j - 1] & a) | (x[j] & ~a)`。
 > "The first part indicates the carries from previous one. The second part indicates the bits not carried to next one."
 
+### P141 Linked List Cycle 判断单链表是否有环
+快慢指针检测链表是否有环：fastRunner一次移动两步，slowRunner一次移动一步，好比两辆赛车绕着同一赛道以不同速度前进，最总必然会相遇。
+
+fastRunner会不会刚好“越过” slowRunner，而没有相遇呢？——不会。反证：假设fastRunner越过了slowRunner，当前slowRunner处于位置`i`，fastRunner处于位置`i + 1`，那么考虑前一步，slowRunner已经处于`i - 1`，fastRunner呢，也是处于`i - 1`，就是说，两者已经相遇了。
+
+### P142 Linked List Cycle II
+由检测链表是否存在环的问题演变而来，结论比较简单，推理过程略麻烦，详见《CC150》 P126.
+
 ### P160 Intersection of Two Linked Lists 两条单链表相交求交点
 两条单链表若相交，则一定呈"`Y`"形而不可能呈"`X`"形。自交点往后，都是公共部分；而交点之前，可能有不同长度的子链表。形象地做一个“截断”，使两个链表对齐，然后从对齐的点开始，同步进行遍历，就可以找到交点了。若走到头也没找到，就意味着不相交。
 
@@ -375,14 +383,6 @@ dummy.next = head;
             result *= (-1);
         }
 ```
-
-### P141 Linked List Cycle 判断单链表是否有环
-快慢指针检测链表是否有环：fastRunner一次移动两步，slowRunner一次移动一步，好比两辆赛车绕着同一赛道以不同速度前进，最总必然会相遇。
-
-fastRunner会不会刚好“越过” slowRunner，而没有相遇呢？——不会。反证：假设fastRunner越过了slowRunner，当前slowRunner处于位置`i`，fastRunner处于位置`i + 1`，那么考虑前一步，slowRunner已经处于`i - 1`，fastRunner呢，也是处于`i - 1`，就是说，两者已经相遇了。
-
-### P142 Linked List Cycle II
-由检测链表是否存在环的问题演变而来，结论比较简单，推理过程略麻烦，详见《CC150》 P126.
 
 ### P206 Reverse Linked List 逆置单链表
 题目建议完成迭代和递归两种实现。
