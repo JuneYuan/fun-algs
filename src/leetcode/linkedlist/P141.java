@@ -1,5 +1,6 @@
 package leetcode.linkedlist;
 
+// 判断单链表是否有环
 public class P141 {
 
     public boolean hasCycle(ListNode head) {
