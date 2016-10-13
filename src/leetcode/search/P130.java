@@ -2,8 +2,11 @@ package leetcode.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.*;
 
-// 这是 dfs 解法，LintCode 能通过，LeetCode 会因数据量较大而报 java.lang.StackOverflowError 异常
+import edu.princeton.cs.algs4.StdRandom;
+
+// 这是用 dfs 方式搜索，LintCode 能通过，LeetCode 会因数据量较大而报 java.lang.StackOverflowError 异常
 public class P130 {
 	private char[][] board;
 	private int n, m;
@@ -72,4 +75,35 @@ public class P130 {
         }
     }
 
+        
+    @Test
+    public void test() {		
+		int N = 300;
+		char[][] board = new char[N][N];		
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				int t = StdRandom.uniform(2);
+				char ch = 'O';
+				// char ch = (t == 0) ? 'X' : 'O';
+				board[i][j] = ch;
+			}
+		}
+
+		System.out.println("board[][] before process...");
+		display(board);
+		
+		solve(board);
+		
+		System.out.println("board[][] after process...");
+		display(board);
+	}
+    
+    private void display(char[][] board) {
+    	for (char[] line : board) {
+    		for (char ch : line) {
+    			System.out.print(ch + " ");
+    		}
+    		System.out.println();
+    	}
+    }
 }
