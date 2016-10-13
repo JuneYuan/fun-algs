@@ -1,5 +1,5 @@
 1. LeetCode, LintCode已完成题目
-2. 2017校招笔试面试题目
+2. 2017校招笔试面试题目部分整理
 3. 基础数据结构与算法笔记
 
 As follows.
@@ -30,6 +30,9 @@ LeetCode
 | 125 | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome) | 判断回文 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p125-valid-palindrome-判断回文) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/string/P125.java) | E | String |  |
 | 127 | [Word Ladder](https://leetcode.com/problems/word-ladder) | 单词演变 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#127-word-ladder-单词演变) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/search/P127.java) | M | Queue | BFS |
 | 137 | [Single Number II](https://leetcode.com/problems/single-number-ii) | 找单数（3n+1） | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p137-single-number-ii-找单数3n1) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/bits/P137.java) | M |  | Bits |
+| 141 | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle) | 判断单链表是否有环 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p141-linked-list-cycle-判断单链表是否有环) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P141.java) | E | LinkedList | Two Pointers |
+| 160 | [Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists) | 两条单链表相交求交点 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p160-intersection-of-two-linked-lists-两条单链表相交求交点) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P160.java) | W | LinkedList |  |
+| 206 | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list) | 逆置单链表 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p206-reverse-linked-list-逆置单链表) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P206.java) | E | LinkedList |  |
 | 217 | [Contains Duplicate](https://leetcode.com/problems/contains-duplicate) | 数组元素查重 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p217-contains-duplicate-数组元素查重) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/array/P217.java) | E | Array, HashTable |  |
 | 223 | [Rectangle Area](https://leetcode.com/problems/rectangle-area) | 求两矩形覆盖的面积 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p223-rectangle-area-求两矩形覆盖的面积) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/math/P223.java) | E |  | Math |
 | 322 | [Coin Change](https://leetcode.com/problems/coin-change) | 换零钱 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p322-coin-change-换零钱) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/dp/P322.java) | M |  | DP |
@@ -71,7 +74,7 @@ LintCode
 | 爬山 | 京东 | []() | []() | Array |  |
 | 最大子区间和 | 滴滴 | []() | []() | Array | Greedy, DP |
 | 餐桌分配 | 滴滴 | []() | []() | Array, Heap |  |
-| 数组分为两堆后和相差的最小值 | 猿辅导 | ['TO UPDATE']() | []() | Array | DP |
+| 数组分为两堆后和相差的最小值 | 猿辅导 | [`TO UPDATE`]() | []() | Array | DP |
 | 数组分为两堆后平均值相差的最大值 | 猿辅导 | []() | []() | Array | Math |
 | 子矩阵的中位数 | 猿辅导 | []() | []() | Array | Heap |
 | 最强大脑 | 奇虎360 | [`TO UPDATE`]() | []() | String |  |
@@ -84,12 +87,12 @@ LintCode
 | 编程实现生产者消费者模型 | 美图 | []() | []() | Stack |  |
 | 求一个数组任意两元素之和的最大值 | 美图 | []() | []() | Array |  |
 | 输出二叉树每层最后一个节点 | 京东 | []() | []() | DS | Algs |
-| 求组合数C(n, m) | 京东 | ['TODO']() | []() |  |  |
+| 求组合数C(n, m) | 京东 | [`TODO`]() | []() |  |  |
 | 整数n变到1的最少步骤 | 创新工场 | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/exam/ChuangXin_nToOne.java) | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/Interview.md#创新工场涂鸦-sep-13-tue) | Array | BFS, DP |
-| 求第n个素数 | 链家 | ['TO UPDATE']() | []() |  | Math |
-| 求某规律字符串数组的第k项 | 链家 | ['TO UPDATE']() | []() |  | Misc |
+| 求第n个素数 | 链家 | [`TO UPDATE`]() | []() |  | Math |
+| 求某规律字符串数组的第k项 | 链家 | [`TO UPDATE`]() | []() |  | Misc |
 | Full Sets on Fabric | 链家 | []() | []() |  |  |
-| Big Home | 百度 | ['TO UPDATE']() | []() | Array | Union Find |
+| Big Home | 百度 | [`TO UPDATE`]() | []() | Array | Union Find |
 | 树上摘苹果 | 百度 | []() | []() | Tree | DP |
 | 括号匹配 | 百度 | []() | []() | Stack |  |
 | 保留最大的数 | 搜狐 | []() | []() |  | Math |
@@ -115,10 +118,11 @@ LintCode
 | 进程协作打印字符 | 完美世界 | []() | []() |  |  |
 | String Shifting | 头条 | []() | []() | String | KMP |
 | 字典序数字 | 头条 | []() | []() | Array | Misc |
-| 新最大子区间和 | 一点资讯 | ['TO UPDATE']() | []() | Array |  |
+| 新最大子区间和 | 一点资讯 | [`TO UPDATE`]() | []() | Array |  |
 | 丧尸攻击 | 一点资讯 | [`TO UPDATE`]() | []() | Array |  |
+| 给小朋友派糖 | 链家 | []() |  | Array, Hash |  |
 
-| desc | Corp | [Java]() | []() | DS | Algs |
+| desc | Corp | Code | Notes | DS | Algs |
 
 
 ---
