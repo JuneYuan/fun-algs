@@ -8,8 +8,10 @@ import java.util.Scanner;
 二叉树：由层次遍历序列求树高及中序遍历序列
 1
 1 2 3 4 5 6 7 8 9 10 -1
+
+这个是错误的版本，当成完全二叉树处理了。（用数组tree存放所有TreeNode节点，再为节点建立父子关系）
  */
-public class Lianjia2_inOrderBinaryTree {
+public class Lianjia4_inOrderBinaryTree_WA {
 	Scanner in = new Scanner(System.in);
 	
 	private class TreeNode {
@@ -100,7 +102,7 @@ public class Lianjia2_inOrderBinaryTree {
 	
 	public static void main(String[] args) {
 		
-		new Lianjia2_inOrderBinaryTree().solve();		
+		new Lianjia4_inOrderBinaryTree_WA().solve();		
 		
 	}
 	

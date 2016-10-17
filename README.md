@@ -31,7 +31,7 @@ LeetCode
 | 127 | [Word Ladder](https://leetcode.com/problems/word-ladder) | 单词演变 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#127-word-ladder-单词演变) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/search/P127.java) | M | Queue | BFS |
 | 137 | [Single Number II](https://leetcode.com/problems/single-number-ii) | 找单数（3n+1） | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p137-single-number-ii-找单数3n1) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/bits/P137.java) | M |  | Bits |
 | 141 | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle) | 判断单链表是否有环 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p141-linked-list-cycle-判断单链表是否有环) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P141.java) | E | LinkedList | Two Pointers |
-| 160 | [Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists) | 两条单链表相交求交点 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p160-intersection-of-two-linked-lists-两条单链表相交求交点) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P160.java) | W | LinkedList |  |
+| 160 | [Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists) | 两条单链表相交求交点 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p160-intersection-of-two-linked-lists-两条单链表相交求交点) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P160.java) | E | LinkedList |  |
 | 206 | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list) | 逆置单链表 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p206-reverse-linked-list-逆置单链表) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/linkedlist/P206.java) | E | LinkedList |  |
 | 217 | [Contains Duplicate](https://leetcode.com/problems/contains-duplicate) | 数组元素查重 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p217-contains-duplicate-数组元素查重) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/array/P217.java) | E | Array, HashTable |  |
 | 223 | [Rectangle Area](https://leetcode.com/problems/rectangle-area) | 求两矩形覆盖的面积 | [📒](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/LeetCode.md#p223-rectangle-area-求两矩形覆盖的面积) | [Java](https://github.com/SmartJuneThx/AlgrithmsPractice/blob/master/src/leetcode/math/P223.java) | E |  | Math |
@@ -97,7 +97,7 @@ LintCode
 | 括号匹配 | 百度 | []() | []() | Stack |  |
 | 保留最大的数 | 搜狐 | []() | []() |  | Math |
 | 袋鼠过河 | 搜狐 | []() | []() | Array | DP |
-| 彩色宝石项链 | 搜狐 | [`TODO`]() | []() | String |  |
+| 彩色宝石项链 | 搜狐 | [`TODO`]() | []() | Array |  |
 | 统计二进制中1的个数 | 一点资讯 | [`TO UPDATE`]() | []() |  | Bits |
 | “矩阵方格加权最短路径和” | 一点资讯 | []() | []() | Graph | MST?, DP? |
 | 最长拼接字符串 | Hulu | [`TO UPDATE`]() | []() | String |  |
@@ -114,13 +114,22 @@ LintCode
 | 建堆及其查找的复杂度 | 一点资讯 | []() | []() | Heap |  |
 | LRU算法实现 | 滴滴 | []() | []() | LinkedHashMap |  |
 | BST非递归插入 | 滴滴 | []() | []() | BST | Algs |
-| 玩家使用经验丹升级 | 完美世界 | []() | []() |  |  |
-| 进程协作打印字符 | 完美世界 | []() | []() |  |  |
+| 玩家使用经验丹升级 | 完美世界 | [`TO UPDATE`]() | []() |  | Math |
+| 进程协作打印字符 | 完美世界 | [`TO UPDATE`]() | []() |  |  |
 | String Shifting | 头条 | []() | []() | String | KMP |
 | 字典序数字 | 头条 | []() | []() | Array | Misc |
 | 新最大子区间和 | 一点资讯 | [`TO UPDATE`]() | []() | Array |  |
 | 丧尸攻击 | 一点资讯 | [`TO UPDATE`]() | []() | Array |  |
+| 字符串序列找规律 | 七牛 | []() | []() | String |  |
 | 给小朋友派糖 | 链家 | []() |  | Array, Hash |  |
+| 求两个日期之间的天数 | 中软融鑫 | []() | []() |  |  |
+| 倒序输出一句话中的单词 | 中软融鑫 | []() | []() | String |  |
+| 压缩字符串 | Zenjoy | []() | []() | String, Array |  |
+| 由二叉树的层次遍历求其中序遍历 | 链家 | []() | []() | Tree | BFS |
+| 下一个对称整数 | 去哪儿 | []() | []() |  |  |
+| 两字符串是否有相同字符集构成 | 去哪儿 | []() | []() | String |  |
+| 销售员最多销售天数 | Amazon | []() | []() | Array |  |
+| 有序循环链表的插入操作 | Amazon | []() | []() | LinkedList |  |
 
 | desc | Corp | Code | Notes | DS | Algs |
 

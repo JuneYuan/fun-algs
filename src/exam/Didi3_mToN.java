@@ -3,7 +3,7 @@ package exam;
 import java.util.Scanner;
 
 // 十进制数M转换为N进制数
-public class Didi1_mToN {
+public class Didi3_mToN {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int M = in.nextInt();
