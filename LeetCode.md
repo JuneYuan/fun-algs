@@ -29,6 +29,9 @@ acc = (add >= 10) ? 1 : 0
 
 ### P3 Longest Substring Without Repeating Characters 最长不重复子串
 
+### P4 Median of Two Sorted Arrays
+归并排序，排到第k个停止
+
 ### P6 Zigzag
 一层循环：每个Unit。注：一长一短为一个单元，包含numRows + (numRows-2)个字符
 二层循环：A. 该unit的长列；B. 该unit的短列
