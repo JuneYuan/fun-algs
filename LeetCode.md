@@ -228,6 +228,10 @@ for (int i = 1, ans = i; ...) {...}
 ### P58 Length of Last Word
 1. 不仅需要考虑`s == null || s.length() == 0`的情况，还要考虑s只包含空格的情况，所以首先要`trim()`去除头尾的空格。
 
+### P77 Combinations 组合问题
+
+套用`P46 Permutations`模版。
+
 ### P78 Subsets 求子集
 原问题可以转化为数学中的组合问题。
 
