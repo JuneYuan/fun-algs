@@ -371,6 +371,10 @@ fastRunner会不会刚好“越过” slowRunner，而没有相遇呢？——�
 ### P142 Linked List Cycle II
 由检测链表是否存在环的问题演变而来，结论比较简单，推理过程略麻烦，详见《CC150》 P126.
 
+### P151 Reverse Words in a String 逆序输出句子中的单词
+
+临摹[克林的代码](http://mp.weixin.qq.com/s?__biz=MzI0MDExNjAwOQ==&mid=2651507854&idx=1&sn=7decc3f072a9e49d15de6d1a6cefc60a&scene=21#wechat_redirect)，学习如何利用`while(true)`循环来处理这种复杂点的中间情况——针对可能出现的情况分别处理，该跳过就跳过，该前进就前进，该退出了就退出，整体来说，只需要顺次遍历每个字符就ok了。
+
 ### P160 Intersection of Two Linked Lists 两条单链表相交求交点
 两条单链表若相交，则一定呈"`Y`"形而不可能呈"`X`"形。自交点往后，都是公共部分；而交点之前，可能有不同长度的子链表。形象地做一个“截断”，使两个链表对齐，然后从对齐的点开始，同步进行遍历，就可以找到交点了。若走到头也没找到，就意味着不相交。
 
