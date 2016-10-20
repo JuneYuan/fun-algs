@@ -274,6 +274,20 @@ dummy.next = head;
 2. 直接创建两个链表，一个存放小于`x`的元素，一个存放大于等于`x`的元素。迭代访问整个链表，将元素插入`left`或`right`链表，遍历完成后，合并两个链表并返回。《CC150》还提供了头插法维护两个链表的版本，但是不适用于这道题目的要求。
 3. 使用`dummy`避免头节点处理的麻烦，是很可取的。
 
+### P98 Validate Binary Search Tree
+
+思路：二叉搜索树BST的特点是，中序遍历结果为（严格）升序序列，所以最直接的想法就是，进行中序遍历，检查结果是否为严格升序。
+注意：二叉树的每个节点`node`都满足`less(node.left, node) && less(node, node.right)` **≠>** 这个二叉树是BST。（也就是说，前者是后者的必要不充分条件）
+
+#### 写法一：简单递归
+在上述思路的基础上，利用上述必要条件加以优化，一旦遇到某节点与其左右孩子不满足要求，立即`return false`. 
+
+#### 写法二：带状态的递归
+写法一的缺点是，它仅考虑了根节点与当前的左右子节点，而没有考虑左子树中父节点的最小值和右子树中父节点的最大值。否则`[10,5,15,null,null,6,20]`这种样例会出错。
+
+#### 写法三：迭代
+其实就是迭代方式中序遍历二叉树
+
 ### P108 Converted Sorted Array To Binary Search Tree 从有序数列构造平衡二叉树
 思路：折半取中
 
@@ -281,7 +295,7 @@ dummy.next = head;
 
 处理过程可采用递归。
 
-### P110 Balanced Binary Tree
+### P110 Balanced Binary Tree 判断是否二叉搜索树
 递归函数`height(TreeNode )`，或`height(TreeNode , int )`边界条件要仔细斟酌。
 
 ### P125 Valid Palindrome 判断回文
