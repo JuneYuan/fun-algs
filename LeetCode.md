@@ -449,7 +449,18 @@ head.next = null;  // 断开head与原链表后续节点之间的link
 利用HashTable查找的O(1)特性。遍历数组元素，每次插入集合，若不成功，则return true；全部插入成功，返回false。
 
 ### P223 Rectangle Area 求两矩形覆盖的面积
-计算两个矩形的总面积然后减去重叠的部分就得到了总面积，关键在于重叠部分面积的计算。
+计算两个矩形的总面积然后减去重叠的部分就得到了总面积，关键在于重叠部分面积的计算。当然，首先要判断两个矩形是否重叠。
+
+如何判断？——设给定的两个矩形为 `A` 和 `B`, 重叠的矩形为 `C`, 用 `A.left`, `A.right`, `A.bottom`, `A.top` 的记法分别表示矩形的左边、右边、下边、上边，那么一定有：
+
+```
+C.left = max(A.left, B.left);
+C.right = min(A.right, B.right);
+C.bottom = max(A.bottom, B.bottom);
+C.top = min(A.top, B.top);
+```
+
+其中，`min` 表示偏左（或偏下），`max` 表示偏右（或偏上）。这样，矩形 `A` 与矩形 `B` 重叠，就等价于求得的 `C` 能构成一个合法矩形（左边小于右边， 下边小于上边）；否则不重叠。
 
 ### P237 Delete Node in a Linked List
 1. Foolish approach: Repeatedly copy data of `next Node` to current Node, and delete `next Node` only when it is `the last Node`.
