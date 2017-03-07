@@ -3,16 +3,20 @@ package lintcode.string;
 public class P55 {
 
     public boolean compareStrings(String A, String B) {
+        if (A == null || B == null)     return false;
         if (A.length() < B.length())    return false;
-        final int alphabetNum = 26;
-        int[] letterCnt = new int[alphabetNum];
+        
+        final int UPPER_NUM = 26;
+        int[] letterCnt = new int[UPPER_NUM];
+        
         for (int i = 0; i < A.length(); i++) {
             ++letterCnt[A.charAt(i) - 'A'];
         }
         
         for (int i = 0; i < B.length(); i++) {
-            --letterCnt[B.charAt(i) - 'A'];
-            if (letterCnt[B.charAt(i) - 'A'] < 0)   return false;
+            int idx = B.charAt(i) - 'A';
+            --letterCnt[idx];
+            if (letterCnt[idx] < 0)    return false;
         }
         
         return true;
