@@ -2,7 +2,7 @@ package exam;
 import org.junit.Test;
 
 // 城市规划－并查集
-public class BaiduA {
+public class Baidu1_bigHome {
 	private static int n;
 	private static int m;
 	private static int[] area;
