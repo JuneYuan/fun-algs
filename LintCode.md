@@ -136,3 +136,7 @@ WA：虽然注意到了尾行、尾列初始化的问题，但还是漏掉了右
 
 Bug
 1. `++letterCnt[s.charAt(i)];`错写成了`++letterCnt[s.charAt(i) - 'a'];`，导致Runtime Error. （因为字符串中可能包含比‘a’小的字符，从而出现负数下标）。
+
+### P171 Anagrams 变位词分组
+
+见 LeetCode P49

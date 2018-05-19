@@ -2,20 +2,13 @@ package basis.sorting;
 
 public class QuickSort {
 
-	public static void quickSort_inplace(int[] A, int L, int R) {
-		for (int item : A) {
-			System.out.println(item + " ");
-		}
-		System.out.println();
+	public static void quickSort_inplace(int[] A, int L, int R) {		
+		// 递归终止条件（少于两个元素时就退出了）
+		if (R <= L)	return;
 		
-		// 递归终止条件
-		if (L >= R)	return;
-		
-		// 分区
-		int m = partition1(A, L, R);
-		// int m = partition2(A, L, R);
-		
-		// 分治
+		// 分区，然后分治
+		int m = partition1(A, L, R);	// 快慢指针
+		// int m = partition2(A, L, R);	// 首尾指针
 		quickSort_inplace(A, L, m - 1);
 		quickSort_inplace(A, m + 1, R);
 	}

@@ -1,10 +1,8 @@
-package hihocoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Scanner;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class P1015 {
@@ -36,10 +34,11 @@ public class P1015 {
 		else	return N;  // NOT found
 		
 	}
-	
-	public static void kmpSearch() {
+
+	public static void kmpSearch1() {
+		dfa();
 		int i, j, k = 0, ret = 0;
-		do {
+		while (true) {
 			for (i = k, j = 0; i < N && j < M; i++)
 				j = dfa[txt.charAt(i) - 65][j];
 			
@@ -48,7 +47,7 @@ public class P1015 {
 				ret++;
 			} else 
 				break;
-		} while (k > 0);
+		}
 		
 		System.out.println(ret);
 	}
@@ -69,6 +68,34 @@ public class P1015 {
 			X = dfa[pat.charAt(j) - 65][X];
 		}
 	}
+
+	public static void kmpSearch2() {
+		int ret = 0;
+		int[] fail = fail();
+		for (int i = 0, j = 0; i < N; i++) {
+			while (j != 0 && txt.charAt(i) != pat.charAt(j))	j = fail[j];
+			if (txt.charAt(i) == pat.charAt(j))		j++;
+			
+			if (j == M) {
+				ret++;
+				j = 0;
+				
+				while (j != 0 && txt.charAt(i) != pat.charAt(j))	j = fail[j];
+				if (txt.charAt(i) == pat.charAt(j))		j++;				
+			}
+		}
+		System.out.println(ret);
+	}
+	
+	private static int[] fail(){
+		int[] fail = new int[M + 1];
+		for (int i = 1; i < M; i++) {
+			int j = fail[i];
+			while (j != 0 && pat.charAt(j) == pat.charAt(i))	j = fail[j];
+			fail[i + 1] = (pat.charAt(j) == pat.charAt(i)) ? j + 1 : 0;
+		}
+		return fail;
+	}
 	
 	public static void main(String[] args) {
 		InputReader in = new InputReader(System.in);
@@ -81,8 +108,8 @@ public class P1015 {
 			M = pat.length();
 			dfa = new int[R][M];			
 			
-			dfa();
-			kmpSearch();
+			kmpSearch2();
+			//kmpSearch1();
 		}		
 		//out.close();
 	}
