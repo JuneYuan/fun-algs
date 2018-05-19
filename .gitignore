@@ -1,0 +1,9 @@
+/bin/
+.DS_Store
+.classpath
+.idea/
+.project
+.settings/
+AlgrithmsPractice.iml
+sketch/
+
