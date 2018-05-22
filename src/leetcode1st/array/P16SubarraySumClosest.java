@@ -23,21 +23,22 @@ public class P16SubarraySumClosest {
         return null;
     }
 
-    public int[] solution2(int[] nums) {
+    /*public int[] solution2(int[] nums) {
         if (nums == null || nums.length == 0) {
             throw new IllegalStateException();
         }
 
         List<Integer> result = new ArrayList<>();
-        List<Pair> sumIndex = new ArrayList<>();
+        List<Pair> sumIndex = new ArrayList<>(nums.length + 1);
 
-        sumIndex.add(new Pair(0, 0));
+        sumIndex.set(0, new Pair(0, 0));
         for (int i = 0; i < nums.length; i++) {
-            Pair prev = sumIndex.get(i);
-            sumIndex.add(new Pair(prev.first + nums[i], i + 1));
+            int first = sumIndex.get(i).first + nums[i];
+            int second = i + 1;
+            sumIndex.add(i + 1, new Pair(first, second));
         }
 
-//        Collections.sort(sumIndex);
+        Collections.sort(sumIndex);
 
         int minDiff = Integer.MAX_VALUE, closestIndex = 1;
         for (int i = 1; i < nums.length; i++) {
@@ -48,16 +49,50 @@ public class P16SubarraySumClosest {
             }
         }
 
-        int leftIndex = Math.min(sumIndex.get(closestIndex - 1).second,
-                                sumIndex.get(closestIndex).second);
-        int rightIndex = -1 + Math.max(sumIndex.get(closestIndex - 1).second,
-                                      sumIndex.get(closestIndex).second);
+        int leftIndex = Math.min(sumIndex.get(closestIndex - 1).getSecond(),
+                                sumIndex.get(closestIndex).getSecond());
+        int rightIndex = -1 + Math.max(sumIndex.get(closestIndex - 1).getSecond(),
+                                      sumIndex.get(closestIndex).getSecond());
         return new int[]{leftIndex, rightIndex};
+    }*/
+
+    public int solution2Beta(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            throw new IllegalStateException();
+        }
+
+        List<Pair> sumIndex = new ArrayList<>(nums.length + 1);
+
+        sumIndex.add(new Pair(0, 0));
+        for (int i = 0; i < nums.length; i++) {
+            int first = sumIndex.get(i).first + nums[i];
+            int second = i + 1;
+            sumIndex.add(new Pair(first, second));
+        }
+
+        Collections.sort(sumIndex);
+
+        int minDiff = Integer.MAX_VALUE;
+        for (int i = 1; i < nums.length; i++) {
+            Pair currPair = sumIndex.get(i);
+            Pair prevPair = sumIndex.get(i - 1);
+            int sumDiff;
+            if (currPair.getSecond() > prevPair.getSecond()) {
+                sumDiff = currPair.getFirst() - prevPair.getFirst();
+            } else {
+                sumDiff = prevPair.getFirst() - currPair.getFirst();
+            }
+
+            int targetDiff = Math.abs(sumDiff - target);
+            minDiff = Math.min(minDiff, targetDiff);
+        }
+
+        return minDiff;
     }
 
 }
 
-class Pair {
+class Pair implements Comparable<Pair> {
     int first, second;
 
     public Pair(int first, int second) {
@@ -71,5 +106,10 @@ class Pair {
 
     public int getSecond() {
         return second;
+    }
+
+    @Override
+    public int compareTo(Pair that) {
+        return (this.first - that.first);
     }
 }
