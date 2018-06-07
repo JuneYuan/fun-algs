@@ -3,8 +3,6 @@ package leetcode1st.datastruct;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import org.junit.Test;
-
 public class P378 {
 
     public int kthSmallest_MaxHeap(int[][] matrix, int k) {
@@ -90,17 +88,6 @@ public class P378 {
     		}
     	}
     	return bgn;
-    }
-        
-    @Test
-    public void test() {
-    	int[][] matrix = {
-    			{1, 5, 9},
-    			{10, 11, 13},
-    			{12, 13, 15}
-    	};
-    	int ans = kthSmallest_MinHeap(matrix, 9);
-    	System.out.println(ans);
     }
 
 }

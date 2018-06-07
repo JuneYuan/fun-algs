@@ -1,4 +1,4 @@
-package lintcode.array;
+package lintcode1st.array;
 
 import java.util.ArrayList;
 import java.util.HashMap;

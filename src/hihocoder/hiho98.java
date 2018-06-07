@@ -1,8 +1,8 @@
+package hihocoder;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import edu.princeton.cs.algs4.StdIn;
 
 public class hiho98 {
 	private static final int M = 4;

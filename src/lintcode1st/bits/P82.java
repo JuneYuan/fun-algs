@@ -1,4 +1,4 @@
-package lintcode.bits;
+package lintcode1st.bits;
 
 public class P82 {
 

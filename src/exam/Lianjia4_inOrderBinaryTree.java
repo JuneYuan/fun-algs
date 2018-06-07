@@ -51,7 +51,7 @@ public class Lianjia4_inOrderBinaryTree {
 	}
 	
 	TreeNode buildTree(List<Integer> seq) {
-		
+		return null;
 	}
 
 	void inOrder(TreeNode root) {

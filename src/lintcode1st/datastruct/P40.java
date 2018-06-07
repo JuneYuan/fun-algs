@@ -1,4 +1,4 @@
-package lintcode.datastruct;
+package lintcode1st.datastruct;
 
 import java.util.Stack;
 

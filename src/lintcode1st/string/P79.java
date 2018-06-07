@@ -1,4 +1,4 @@
-package lintcode.string;
+package lintcode1st.string;
 
 public class P79 {
 	public int longestCommonSubstring(String A, String B) {

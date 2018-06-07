@@ -2,7 +2,7 @@ package leetcode1st.string;
 
 public class P151 {
 
-    public String reverseWords(String s) {
+    /*public String reverseWords(String s) {
         StringBuilder sb = new StringBuilder(s);
         int idx = 0, pos = 0, len = 0;
         
@@ -27,6 +27,6 @@ public class P151 {
         
         sb = sb.substring(0, pos);
         return sb.reverse();
-    }
+    }*/
 
 }

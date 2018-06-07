@@ -1,6 +1,6 @@
 package basis.algorithm;
 
-public class BinarySearch {
+public class BinarySearch1 {
 
 	// CORE: A[idx] >= target, min(idx)???
 	private static int lowerBound(int[] A, int target) {

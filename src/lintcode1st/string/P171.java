@@ -1,4 +1,4 @@
-package lintcode.string;
+package lintcode1st.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package lintcode.dp;
+package lintcode1st.dp;
 
 import java.util.Arrays;
 

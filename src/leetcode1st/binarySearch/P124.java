@@ -20,7 +20,7 @@ public class P124 {
 		
 		List<Integer> list = new ArrayList<>();
 		Arrays.asList(1, 2, 3);
-		list.add
+//		list.add
 		return helper(root).maxPath;
 		
 	}

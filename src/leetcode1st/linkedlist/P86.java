@@ -2,9 +2,11 @@ package leetcode1st.linkedlist;
 
 public class P86 {
 	// 创建两个链表，尾插法添加节点
-    public ListNode partition(ListNode head, int x) {
+    public ListNode solutuion1(ListNode head, int x) {
         ListNode leftStart = null;
         ListNode rightStart = null;
+        ListNode leftEnd = null;
+        ListNode rightEnd = null;
         
         while (head != null) {
             ListNode next = head.next;
@@ -37,7 +39,7 @@ public class P86 {
     }
 
     // 创建两个链表，尾插法添加节点（不能满足这道题保持节点相对顺序的要求）
-    public ListNode partition(ListNode head, int x) {
+    public ListNode solution2(ListNode head, int x) {
         ListNode leftStart = null;
         ListNode rightStart = null;
         
@@ -64,6 +66,12 @@ public class P86 {
         leftStart.next = rightStart;
         
         return cursor;
+    }
+
+
+    class ListNode {
+        int val;
+        ListNode next;
     }
 
 }

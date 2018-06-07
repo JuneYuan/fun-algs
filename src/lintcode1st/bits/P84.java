@@ -1,4 +1,4 @@
-package lintcode.bits;
+package lintcode1st.bits;
 
 import java.util.ArrayList;
 import java.util.List;
