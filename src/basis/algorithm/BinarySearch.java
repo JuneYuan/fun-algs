@@ -3,6 +3,7 @@ package basis.algorithm;
 public class BinarySearch {
 
     /**
+     * lower bound
      * 求给定升序数组中大于等于目标值的最小索引
      */
     public static int lowerBound(int[] nums, int target) {
@@ -24,6 +25,7 @@ public class BinarySearch {
     }
 
     /**
+     * upper bound
      * 求给定升序数组中小于等于目标值的最大索引
      */
     public static int upperBound(int[] nums, int target) {
