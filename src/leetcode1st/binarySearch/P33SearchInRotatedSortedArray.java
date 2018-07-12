@@ -2,7 +2,7 @@ package leetcode1st.binarySearch;
 
 import org.junit.Test;
 
-public class P33 {
+public class P33SearchInRotatedSortedArray {
 	// 直接解法：比较target与A[mid]，并分析各种情况进行讨论
 	public int search_straight(int[] A, int target) {
 		if (A == null || A.length == 0)		return -1;
