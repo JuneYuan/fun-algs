@@ -1,4 +1,4 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 public class P86PartitionList {
 	// 创建两个链表，尾插法添加节点

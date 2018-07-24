@@ -1,14 +1,7 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 //模拟加法运算
 public class P2AddTwoNumbers {
-	private class ListNode {
-		int val;
-		ListNode next;
-		ListNode(int x) {
-			val = x;
-		}
-	}
 	
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(-1);

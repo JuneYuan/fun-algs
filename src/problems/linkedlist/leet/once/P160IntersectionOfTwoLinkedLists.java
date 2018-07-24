@@ -1,4 +1,4 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 // 两条单链表相交求交点
 public class P160IntersectionOfTwoLinkedLists {

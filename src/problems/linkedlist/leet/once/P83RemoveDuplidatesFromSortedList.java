@@ -1,7 +1,8 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 // Remove Duplicates from Sorted List
 public class P83RemoveDuplidatesFromSortedList {
+
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null)   return null;
         
@@ -17,4 +18,5 @@ public class P83RemoveDuplidatesFromSortedList {
         
         return head;
     }
+
 }

@@ -1,4 +1,4 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 public class P237DeleteNodeInLinkedList {
 

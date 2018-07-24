@@ -1,4 +1,4 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 // 判断单链表是否有环
 public class P141LinkedListCycle {

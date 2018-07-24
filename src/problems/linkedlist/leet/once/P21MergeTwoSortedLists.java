@@ -1,4 +1,4 @@
-package leetcode1st.linkedlist;
+package problems.linkedlist.leet.once;
 
 public class P21MergeTwoSortedLists {
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -19,19 +19,5 @@ public class P21MergeTwoSortedLists {
 		curr.next = (l1 != null) ? l1 : l2;
 		
 		return dummy.next;
-	}
-}
-
-class ListNode {
-	int val;
-	ListNode next;
-	ListNode(int val) {
-		this.val = val;
-		this.next = null;
-	}
-	
-	@Override
-	public String toString() {
-		return Integer.toString(val);
 	}
 }
