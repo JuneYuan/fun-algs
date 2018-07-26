@@ -1,10 +1,10 @@
-package leetcode1st.binarySearch;
+package problems.binarysearch.leet.once;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class P124 {
+public class P124BinaryTreeMaximumPathSum {
 	
 	private class Result {
 		int singlePath;  // “路径长度”，路径表示：子树中的某节点到当前节点

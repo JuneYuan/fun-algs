@@ -1,4 +1,4 @@
-package lintcode1st.binarySearch;
+package problems.binarysearch.lint.once;
 
 public class P183WoodCut {
 

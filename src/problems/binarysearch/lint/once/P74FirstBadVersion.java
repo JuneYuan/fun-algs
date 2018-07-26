@@ -1,4 +1,4 @@
-package lintcode1st.binarySearch;
+package problems.binarysearch.lint.once;
 
 public class P74FirstBadVersion {
 
@@ -18,7 +18,7 @@ public class P74FirstBadVersion {
 
 }
 
-public class VersionControl {
+class VersionControl {
     public static boolean isBadVersion(int k) {
         return false;
     }

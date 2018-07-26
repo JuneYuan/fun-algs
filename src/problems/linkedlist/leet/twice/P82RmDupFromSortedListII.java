@@ -12,8 +12,8 @@ public class P82RmDupFromSortedListII {
         ListNode p = dummy;
         while (p.next != null && p.next.next != null) {
             if (p.next.val == p.next.next.val) {
-                int preVal = p.next.val;
-                while (p.next != null && p.next.val == preVal) {
+                int dupVal = p.next.val;
+                while (p.next != null && p.next.val == dupVal) {
                     p.next = p.next.next;
                 }
             } else {
