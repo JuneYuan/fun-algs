@@ -1,5 +1,7 @@
 package problems.linkedlist.geeks;
 
+import java.util.HashMap;
+
 public class RmDupFromUnsortedLinkedList {
 
     public static ListNode twoLoopSolution(ListNode head) {
@@ -32,7 +34,7 @@ public class RmDupFromUnsortedLinkedList {
             if (hash.containsKey(p.next.val)) {
                 p.next = p.next.next;
             } else {
-                hash.put(curr.next.val, true);
+                hash.put(p.next.val, true);
                 p = p.next;
             }
         }
