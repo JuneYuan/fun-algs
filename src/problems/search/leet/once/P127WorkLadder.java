@@ -1,4 +1,4 @@
-package leetcode1st.search;
+package problems.search.leet.once;
 
 import java.util.HashSet;
 import java.util.LinkedList;
