@@ -3,12 +3,13 @@ package problems.linkedlist.leet.twice;
 public class P206ReverseLinkedList {
 
     public ListNode iterate(ListNode head) {
-        ListNode prev = null, curr = head;
-        while (curr != null) {
-            ListNode tmp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = tmp;
+        ListNode p = head;
+        ListNode prev = null, succ = null;
+        while (p != null) {
+            succ = p.next;
+            p.next = prev;
+            prev = p;
+            p = succ;
         }
 
         return prev;
