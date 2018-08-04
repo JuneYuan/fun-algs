@@ -1,4 +1,4 @@
-package lintcode1st.array;
+package problems.array.lint.once;
 
 public class P31 {
     public int partitionArray(int[] nums, int k) {

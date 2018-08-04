@@ -1,4 +1,4 @@
-package lintcode1st.dp;
+package problems.dp.lint.once;
 
 import org.junit.Test;
 

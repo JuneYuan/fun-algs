@@ -1,3 +1,4 @@
+package mioj;
 
 public class MiOJ73 {
 	private static String solution(String line) {

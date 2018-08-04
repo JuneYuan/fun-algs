@@ -1,4 +1,4 @@
-package leetcode1st.binarySearchTree;
+package problems.binarysearchtree;
 
 // 递归，并在递归时引入上下界的值
 public class P98_clever {

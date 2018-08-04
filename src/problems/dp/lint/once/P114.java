@@ -1,4 +1,4 @@
-package lintcode1st.dp;
+package problems.dp.lint.once;
 
 public class P114 {
 	int uniquePaths(int m, int n) {

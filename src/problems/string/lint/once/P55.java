@@ -1,4 +1,4 @@
-package lintcode1st.string;
+package problems.string.lint.once;
 
 public class P55 {
 

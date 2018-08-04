@@ -1,4 +1,4 @@
-package leetcode1st.string;
+package problems.string.leet.once;
 
 public class P38CountAndSay {
 	/*

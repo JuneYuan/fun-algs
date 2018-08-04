@@ -1,4 +1,4 @@
-package leetcode1st.binarySearch;
+package problems.binarysearch.leet.once;
 
 import org.junit.Test;
 

@@ -1,3 +1,5 @@
+package hihocoder;
+
 import java.util.Scanner;
 
 public class P1049 {

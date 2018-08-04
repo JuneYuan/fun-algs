@@ -1,3 +1,5 @@
+package problems.array.lint.once;
+
 public class P373PartitionByOddAndEven {
 
     public void partitionArray(int[] nums) {

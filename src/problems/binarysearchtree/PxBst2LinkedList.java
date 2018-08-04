@@ -1,4 +1,4 @@
-package leetcode1st.binarySearchTree;
+package problems.binarysearchtree;
 
 public class PxBst2LinkedList {
 

@@ -1,4 +1,4 @@
-package lintcode1st.string;
+package problems.string.lint.once;
 
 public class P158 {
 	public boolean anagram_hashmap(String s, String t) {

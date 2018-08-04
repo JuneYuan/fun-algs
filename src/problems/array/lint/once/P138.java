@@ -1,4 +1,4 @@
-package lintcode1st.array;
+package problems.array.lint.once;
 
 import java.util.ArrayList;
 import java.util.HashMap;

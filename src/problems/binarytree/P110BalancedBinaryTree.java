@@ -1,4 +1,4 @@
-package leetcode1st.binaryTree;
+package problems.binarytree;
 
 // Balanced Binary Tree
 public class P110BalancedBinaryTree {

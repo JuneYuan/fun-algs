@@ -1,4 +1,4 @@
-package leetcode1st.binarySearch;
+package problems.binarysearch.leet.once;
 
 public class P34SearchForRange {
 

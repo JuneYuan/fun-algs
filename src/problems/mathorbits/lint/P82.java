@@ -1,4 +1,4 @@
-package lintcode1st.bits;
+package problems.mathorbits.lint;
 
 public class P82 {
 

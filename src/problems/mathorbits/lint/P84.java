@@ -1,4 +1,4 @@
-package lintcode1st.bits;
+package problems.mathorbits.lint;
 
 import java.util.ArrayList;
 import java.util.List;

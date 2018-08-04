@@ -1,4 +1,4 @@
-package leetcode1st.misc;
+package problems.misc.leet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
