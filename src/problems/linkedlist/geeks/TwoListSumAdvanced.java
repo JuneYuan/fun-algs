@@ -18,6 +18,8 @@ public class TwoListSumAdvanced {
             prev = p;
             p = succ;
         }
+
+        return p;
     }
 
     private ListNode add(ListNode head1, ListNode head2) {
@@ -42,7 +44,7 @@ public class TwoListSumAdvanced {
             p = p.next;
         }
 
-        return dummp.next;
+        return dummy.next;
     }
 
 }
