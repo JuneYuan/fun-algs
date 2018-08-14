@@ -2,7 +2,10 @@ package problems.linkedlist.leet.twice;
 
 public class P148SortList {
 
-    public ListNode sortList(ListNode head) {
+    /**
+     * 归并排序（根据链表长度求中间节点）
+     */
+    public ListNode solution1(ListNode head) {
         if (head == null) {
             return null;
         }
@@ -34,27 +37,92 @@ public class P148SortList {
         midNode.next = null;
         ListNode listL = sortListHelper(head, length/2);
 
-        return mergeList(listL, listR);
+        return merge1(listL, listR);
     }
 
-    private ListNode mergeList(ListNode listL, ListNode listR) {
+    private ListNode merge1(ListNode head1, ListNode head2) {
         ListNode dummy = new ListNode(0);
-        ListNode lastNode = dummy;
-        while (listL != null && listR != null) {
-            if (listL.val < listR.val) {
-                lastNode.next = listL;
-                listL = listL.next;
+        ListNode p = dummy;
+        while (head1 != null && head2 != null) {
+            if (head1.val < head2.val) {
+                p.next = head1;
+                head1 = head1.next;
             } else {
-                lastNode.next = listR;
-                listR = listR.next;
+                p.next = head2;
+                head2 = head2.next;
             }
 
-            lastNode = lastNode.next;
+            p = p.next;
         }
 
-        lastNode.next = (listL != null) ? listL : listR;
+        p.next = (head1 != null) ? head1 : head2;
 
         return dummy.next;
+    }
+
+
+    /**
+     * 归并排序（快慢指针求中间节点）
+     */
+    public ListNode solution2(ListNode head) {
+        // 退出条件：0个节点或1个节点
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode mid = findMid(head);
+        ListNode left = head, right = mid.next;
+        mid.next = null;
+        left = solution2(left);
+        right = solution2(right);
+
+        return merge2(left, right);
+    }
+
+    private ListNode findMid(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    private ListNode merge2(ListNode head1, ListNode head2) {
+        ListNode dummy = new ListNode(0);
+        ListNode p = dummy;
+        while (head1 != null || head2 != null) {
+            int a = (head1 == null) ? Integer.MAX_VALUE : head1.val;
+            int b = (head2 == null) ? Integer.MAX_VALUE : head2.val;
+            if (a < b) {
+                p.next = new ListNode(a);
+                if (head1 != null) {
+                    head1 = head1.next;
+                }
+            } else {
+                p.next = new ListNode(b);
+                if (head2 != null) {
+                    head2 = head2.next;
+                }
+            }
+
+            p = p.next;
+        }
+
+        return dummy.next;
+    }
+
+
+    /**
+     * 归并排序（自底向上）
+     */
+    public ListNode solution3(ListNode head) {
+        return null;
     }
 
 }
