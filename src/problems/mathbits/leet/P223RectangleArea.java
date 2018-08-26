@@ -1,4 +1,4 @@
-package problems.mathorbits.leet;
+package problems.mathbits.leet;
 
 public class P223RectangleArea {
 

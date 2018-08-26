@@ -1,56 +1,51 @@
-package problems.binarytree;
+package problems.binarytree.leet.once;
 
 import java.util.Stack;
 
-public class InOrder {
+public class PreOrder {
 	// nr: non-recursive
 	
-	public static void nrInOrder1(Node root) {
+	public static void nrPreOrder1(Node root) {
 		Stack<Node> s = new Stack<>();
 		Node p = root;
 		
 		while (p != null || !s.isEmpty()) {
-			// 对于任一节点，可以看作根节点，根据中序遍历顺序，优先访问其左孩子
+			// 对于任一节点，可以看作根节点，因此可以直接先访问它
+			System.out.println(p + " ");
 			s.push(p);
-
-			// 而左孩子又可看作一根节点，继续访问，直至左孩子为空
+			
+			// 若左孩子非空，按相同规则访问左子树，然后访问右子树
 			if (p.lChild != null) {
 				p = p.lChild;
 				continue;
 			} else {
-			// 每次岀栈时都打印栈顶节点
 				if (p.rChild != null) {
-					System.out.print(s.peek() + " ");
-					p = s.pop().rChild;
+					p = s.pop().rChild;  // 执行这条语句时，栈顶其实就是p，即p == s.pop()
 					continue;
 				} else {
-					System.out.print(s.peek() + " ");
 					s.pop();
-					if (!s.isEmpty()) {
-						System.out.print(s.peek() + " ");
+					if (!s.isEmpty())
 						p = s.pop().rChild;
-					}
 					else
 						p = null;
 				}
 			}
 		}
 	}
-		
-	public static void nrInOrder(Node root) {
+	
+	
+	public static void nrPreOrder(Node root) {
 		Stack<Node> s = new Stack<>();
 		Node p = root;
-		while (p != null || !s.isEmpty()) {
+		while (p != null || !s.empty()) {
 			while (p != null) {
+				System.out.print(p.data + " ");
 				s.push(p);
 				p = p.lChild;
 			}
-			
-			if (!s.isEmpty()) {
-				p = s.peek();
-				System.out.print(p.data);
-				s.pop();
-				p = p.rChild;
+
+			if (!s.empty()) {
+				p = s.pop().rChild;
 			}
 		}
 	}
@@ -75,15 +70,13 @@ public class InOrder {
 		Node D = new Node("D");
 		Node E = new Node("E");
 		Node F = new Node("F");
-		Node G = new Node("G");
 		A.lChild = B;  
 		A.rChild = C;
-		//B.lChild = D;
-		B.rChild = E;
-		C.lChild = F;
-		C.rChild = G;
+		B.rChild = D;
+		D.lChild = E;
+		D.rChild = F;
 		
-		nrInOrder1(A);
+		nrPreOrder1(A);
 	}
 
 }

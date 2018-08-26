@@ -1,4 +1,4 @@
-package problems.mathorbits.leet;
+package problems.mathbits.leet;
 
 import org.junit.Test;
 

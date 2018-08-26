@@ -1,4 +1,4 @@
-package problems.mathorbits.lint;
+package problems.mathbits.lint;
 
 public class P82 {
 

@@ -1,4 +1,4 @@
-package problems.binarytree;
+package problems.binarytree.leet.once;
 
 // Convert Sorted Array to Binary Search Tree  
 public class P108ConvertSortedArrayToBST {
