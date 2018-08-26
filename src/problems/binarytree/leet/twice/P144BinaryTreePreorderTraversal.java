@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-public class BInaryTreePreorderTraversal {
+public class P144BinaryTreePreorderTraversal {
 
     public List<Integer> solution(TreeNode root) {
         List<Integer> result = new ArrayList<>();
@@ -19,6 +19,8 @@ public class BInaryTreePreorderTraversal {
             result.add(root.val);
             if (root.right != null) {
                 stack.push(root.right);
+            }
+            if (root.left != null) {
                 stack.push(root.left);
             }
         }
