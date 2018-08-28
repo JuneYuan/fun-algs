@@ -1,19 +1,66 @@
 package problems.array.leet.twice;
 
+import java.util.Arrays;
+
 public class P215KthLargestElementInArray {
 
-    public int findKthLargest(int[] A, int k) {
+    /**
+     * 迭代
+     */
+    public int mySolutin(int[] A, int k) {
+        if (A == null || A.length == 0 || k < 0 || k > A.length) {
+            return -1;
+        }
+
+        int lo = 0, hi = A.length - 1;
+        while (lo <= hi) {
+            int idx = partition(A, lo, hi);
+            if (idx == k - 1) {
+                return A[idx];
+            } else if (idx < k - 1) {
+                lo = idx + 1;
+            } else {
+                hi = idx - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    private int partition(int[] A, int lo, int hi) {
+        int pivot = A[lo], i = lo + 1, j = hi;
+        while (i <= j) {
+            while (i <= j && A[i] > pivot) {
+                i++;
+            }
+            while (i <= j && A[j] <= pivot) {
+                j--;
+            }
+            if (i < j) {
+                swap(A, i, j);
+            }
+        }
+        swap(A, lo, j);
+
+        return j;
+    }
+
+    /**
+     * 递归
+     */
+    public int refSolution(int[] A, int k) {
         if (A == null || A.length == 0) {
             return -1;
         }
 
-        return qSort1(A, 0, A.length - 1, k);
+        return refSolution1(A, 0, A.length - 1, k);
+//        return refSolution2(A, 0, A.length - 1, k);
     }
 
     /**
      * two-way partitioning
      */
-    private int qSort(int[] A, int lo, int hi, int k) {
+    private int refSolution1(int[] A, int lo, int hi, int k) {
         if (lo >= hi) {
             return A[hi];
         }
@@ -36,16 +83,16 @@ public class P215KthLargestElementInArray {
         if (j + 1 == k) {
             return A[j];
         } else if (j + 1 > k) {
-            return qSort(A, lo, j - 1, k);
+            return refSolution1(A, lo, j - 1, k);
         } else {
-            return qSort(A, j + 1, hi, k);
+            return refSolution1(A, j + 1, hi, k);
         }
     }
 
     /**
      * one index for partition
      */
-    private int qSort1(int[] A, int lo, int hi, int k) {
+    private int refSolution2(int[] A, int lo, int hi, int k) {
         // lo should not be greater than hi
         if (lo >= hi) {
             return A[hi];
@@ -63,9 +110,9 @@ public class P215KthLargestElementInArray {
         if (m + 1 == k) {
             return A[m];
         } else if (m + 1 > k) {
-            return qSort1(A, lo, m - 1, k);
+            return refSolution2(A, lo, m - 1, k);
         } else {
-            return qSort1(A, m + 1, hi, k);
+            return refSolution2(A, m + 1, hi, k);
         }
     }
 
@@ -78,9 +125,11 @@ public class P215KthLargestElementInArray {
 
     public static void main(String[] args) {
         int[] A = new int[]{3,2,1,5,6,4};
-        int k = 3;
-        int ans = new P215KthLargestElementInArray().findKthLargest(A, k);
-        System.out.println(ans);
+//        int[] A = new int[]{-1,2,0};
+        for (int k = 2; k <= A.length; k++) {
+            int ans = new P215KthLargestElementInArray().mySolutin(Arrays.copyOf(A, A.length), k);
+            System.out.printf("k=%d, ans=%d\n", k, ans);
+        }
     }
 
 }
