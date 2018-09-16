@@ -1,5 +1,10 @@
 package problems.binarytree.leet.twice;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 public class P94BinaryTreeInorderTraversal {
 
     /**
@@ -9,9 +14,9 @@ public class P94BinaryTreeInorderTraversal {
         List<Integer> result = new ArrayList<>();
 
         if (root != null) {
-            result.addAll(inorderTraversal(root.left));
+            result.addAll(solution1(root.left));
             result.add(root.val);
-            result.addAll(inorderTraversal(root.right));
+            result.addAll(solution1(root.right));
         }
 
         return result;
@@ -30,7 +35,7 @@ public class P94BinaryTreeInorderTraversal {
         if (root != null) {
             helper(root.left, ret);
             ret.add(root.val);
-            helper(root.right);
+            helper(root.right, ret);
         }
     }
 
