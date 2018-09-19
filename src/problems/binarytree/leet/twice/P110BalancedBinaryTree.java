@@ -100,7 +100,7 @@ class Simpler {
 }
 
 class HodorSln {
-    void isB(TreeNode root) {
+    /*void isB(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -122,7 +122,7 @@ class HodorSln {
         if (Math.abs(ldep - rdep) > 1) {
             root.isB = false;
         }
-    }
+    }*/
 }
 
 /**
