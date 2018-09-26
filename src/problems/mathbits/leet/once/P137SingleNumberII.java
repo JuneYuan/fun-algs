@@ -1,4 +1,4 @@
-package problems.mathbits.leet;
+package problems.mathbits.leet.once;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package problems.binarytree.leet.twice;
+package problems.binarytree.geeks;
 
 public class DiameterOfBinaryTree {
 
@@ -33,7 +33,7 @@ public class DiameterOfBinaryTree {
         root.left.right.left.right = new TreeNode(7);
         root.left.left.left = new TreeNode(8);
 
-        Solution sol = new Solution();
+        DiameterOfBinaryTree sol = new DiameterOfBinaryTree();
         int maxDistance = sol.diameter(root);
         System.out.println("Max Distance: " + maxDistance);
     }
