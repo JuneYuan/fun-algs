@@ -1,4 +1,4 @@
-package problems.datastruct.leet;
+package problems.datastruct.leet.once;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
