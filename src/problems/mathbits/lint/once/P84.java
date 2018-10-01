@@ -1,4 +1,4 @@
-package problems.mathbits.lint;
+package problems.mathbits.lint.once;
 
 import java.util.ArrayList;
 import java.util.List;
