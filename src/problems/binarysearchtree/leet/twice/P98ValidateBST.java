@@ -1,5 +1,8 @@
 package problems.binarysearchtree.leet.twice;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class P98ValidateBST {
 
     public boolean isValidBST(TreeNode root) {
@@ -34,6 +37,33 @@ class MySln {
             return false;
         }
         return helper(root.left, minVal, root.val) && helper(root.right, root.val, maxVal);
+    }
+
+}
+
+class Iteration {
+
+    public boolean isValidBST(TreeNode root) {
+        Deque<TreeNode> st = new ArrayDeque<>();
+        long pre = Long.MIN_VALUE;
+
+        // in-order traverse
+        while (root != null || !st.isEmpty()) {
+            if (root != null) {
+                st.push(root);
+                root = root.left;
+            } else {
+                root = st.pop();
+                if (root.val > pre) {
+                    pre = root.val;
+                } else {
+                    return false;
+                }
+                root = root.right;
+            }
+        }
+
+        return true;
     }
 
 }
